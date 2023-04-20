@@ -29,7 +29,7 @@ public interface StudentActivityRepository extends AbstractRepository {
 	@Query("select a from Activity a where a.enrolment.student.id = :studentId")
 	Collection<Activity> findManyActivitiesByStudentId(int studentId);
 
-	@Query("select e from Enrolment e where e.student.id = :studentId and e.cardNibble is not null and e.cardHolder is not null")
+	@Query("select e from Enrolment e where e.student.id = :studentId and e.finalised = true")
 	Collection<Enrolment> findFinalisedEnrolmentsByStudentId(int studentId);
 
 	//@Query("select a from Activity a where a.enrolment.id = :enrolmentId")

@@ -39,16 +39,12 @@ public class StudentEnrolmentShowService extends AbstractService<Student, Enrolm
 		int masterId;
 		Enrolment enrolment;
 		Student student;
-		//final Principal principal;
 
 		masterId = super.getRequest().getData("id", int.class);
 		enrolment = this.repository.findOneEnrolmentById(masterId);
 		student = enrolment == null ? null : enrolment.getStudent();
 		status = super.getRequest().getPrincipal().hasRole(student);
 
-		//principal = super.getRequest().getPrincipal();
-
-		//status = student == null ? false : principal.getActiveRoleId() == student.getId();
 		super.getResponse().setAuthorised(status);
 
 	}
@@ -76,14 +72,14 @@ public class StudentEnrolmentShowService extends AbstractService<Student, Enrolm
 		courses = this.repository.findAllCourses();
 		choices = SelectChoices.from(courses, "title", object.getCourse());
 
-		finalised = object.getCardHolder() != null && object.getCardNibble() != null ? true : false;
+		//object.setFinalised(object.getCardNibble() != null && object.getCardHolder() != null);
+		finalised = this.repository.findOneEnrolmentById(object.getId()).isFinalised();
 
 		tuple = super.unbind(object, "code", "motivation", "goals", "workTime", "cardHolder", "cardNibble");
-		if (finalised)
-			tuple.put("readonly", true);
+		tuple.put("readonly", finalised);
+		tuple.put("finalised", finalised);
 		tuple.put("course", choices.getSelected().getKey());
 		tuple.put("courses", choices);
-		tuple.put("finalised", finalised);
 		super.getResponse().setData(tuple);
 
 	}

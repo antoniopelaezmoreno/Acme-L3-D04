@@ -11,7 +11,9 @@
 	<acme:input-select code="student.enrolment.form.label.course" path="course" choices="${courses}"/>
 	<acme:input-textbox code="student.enrolment.form.label.cardHolder" path="cardHolder"/>
 	<acme:input-integer code="student.enrolment.form.label.cardNibble" path="cardNibble"/>
-	<acme:input-checkbox code="student.enrolment.form.label.finalised" path="finalised" readonly="true"/>
+	<jstl:if test="${_command != 'create'}">
+		<acme:input-checkbox code="student.enrolment.form.label.finalised" path="finalised" readonly="true"/>
+	</jstl:if>
 	
 	<jstl:if test="${ finalised == false}">
 		<jstl:choose>

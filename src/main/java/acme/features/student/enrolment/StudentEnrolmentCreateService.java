@@ -2,6 +2,7 @@
 package acme.features.student.enrolment;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,7 @@ public class StudentEnrolmentCreateService extends AbstractService<Student, Enro
 		student = this.repository.findOneStudentById(studentId);
 
 		object.setStudent(student);
+		object.setFinalised(false);
 
 		super.getBuffer().setData(object);
 	}
@@ -60,24 +62,37 @@ public class StudentEnrolmentCreateService extends AbstractService<Student, Enro
 
 		courseId = super.getRequest().getData("course", int.class);
 		course = this.repository.findOneCourseById(courseId);
-		//System.out.println(this.repository.findAllEnrolmentsCodes());
 
 		super.bind(object, "code", "motivation", "goals", "workTime", "cardHolder", "cardNibble");
 		object.setCourse(course);
+
+		if (object.getCardHolder().trim() == "")
+			object.setCardHolder(null);
+
+		if (object.getCardNibble().trim() == "")
+			object.setCardNibble(null);
+
+		object.setFinalised(object.getCardNibble() != null && object.getCardHolder() != null);
 	}
 
 	@Override
 	public void validate(final Enrolment object) {
 		assert object != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("code"))
-			super.state(this.repository.findCode(object.getCode()) == null, "code", "student.enrolment.form.error.code");
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+			Optional<Enrolment> existing;
+
+			existing = this.repository.findOneEnrolmentByCode(object.getCode());
+			if (existing.isPresent())
+				super.state(existing == null, "code", "student.enrolment.form.error.code");
+
+		}
 
 		if (!super.getBuffer().getErrors().hasErrors("cardHolder"))
-			super.state(object.getCardHolder() == "" || object.getCardHolder().trim().length() > 0, "cardHolder", "student.enrolment.form.error.cardHolder");
+			super.state(object.getCardHolder() == null || object.getCardHolder().trim().length() > 0, "cardHolder", "student.enrolment.form.error.cardHolder");
 
 		if (!super.getBuffer().getErrors().hasErrors("cardNibble"))
-			super.state(object.getCardNibble() == "" || object.getCardNibble().matches("^[0-9]{4}$"), "cardNibble", "student.enrolment.form.error.cardNibble");
+			super.state(object.getCardNibble() == null || object.getCardNibble().matches("^[0-9]{4}$"), "cardNibble", "student.enrolment.form.error.cardNibble");
 
 	}
 
@@ -85,11 +100,7 @@ public class StudentEnrolmentCreateService extends AbstractService<Student, Enro
 	public void perform(final Enrolment object) {
 		assert object != null;
 
-		if (object.getCardHolder().trim() == "")
-			object.setCardHolder(null);
-
-		if (object.getCardNibble().trim() == "")
-			object.setCardNibble(null);
+		object.setFinalised(object.getCardHolder() != null && object.getCardNibble() != null);
 
 		this.repository.save(object);
 	}
@@ -102,7 +113,7 @@ public class StudentEnrolmentCreateService extends AbstractService<Student, Enro
 		SelectChoices choices;
 		Tuple tuple;
 
-		courses = this.repository.findAllCourses();
+		courses = this.repository.findAllPublishedCourses();
 		choices = SelectChoices.from(courses, "title", object.getCourse());
 
 		tuple = super.unbind(object, "code", "motivation", "goals", "workTime", "cardHolder", "cardNibble");
