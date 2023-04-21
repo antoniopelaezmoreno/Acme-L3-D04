@@ -7,7 +7,7 @@
 	<acme:input-textbox code="student.enrolment.form.label.code" path="code"/>	
 	<acme:input-textbox code="student.enrolment.form.label.motivation" path="motivation"/>
 	<acme:input-textarea code="student.enrolment.form.label.goals" path="goals"/>
-	<acme:input-double code="student.enrolment.form.label.workTime" path="workTime"/>
+	<acme:input-double code="student.enrolment.form.label.workTime" path="workTime" readonly="true"/>
 	<acme:input-select code="student.enrolment.form.label.course" path="course" choices="${courses}"/>
 	<acme:input-textbox code="student.enrolment.form.label.cardHolder" path="cardHolder"/>
 	<acme:input-integer code="student.enrolment.form.label.cardNibble" path="cardNibble"/>

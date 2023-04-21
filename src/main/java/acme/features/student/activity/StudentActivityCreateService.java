@@ -72,7 +72,21 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 	public void perform(final Activity object) {
 		assert object != null;
 
+		Double duration;
+		Double workTime;
+		Enrolment enrolment;
+
+		duration = (double) MomentHelper.computeDuration(object.getPeriodStart(), object.getPeriodEnd()).toHours();
+		enrolment = object.getEnrolment();
+		workTime = enrolment.getWorkTime();
+
+		if (workTime != null)
+			enrolment.setWorkTime(workTime + duration);
+		else
+			enrolment.setWorkTime(duration);
+
 		this.repository.save(object);
+		this.repository.save(enrolment);
 	}
 
 	@Override
@@ -95,7 +109,6 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 		tuple.put("enrolment", choices.getSelected().getKey());
 		tuple.put("enrolments", choices);
 		tuple.put("indicators", indicators);
-		tuple.put("finalised", true);
 
 		super.getResponse().setData(tuple);
 	}

@@ -68,15 +68,13 @@ public class StudentActivityShowService extends AbstractService<Student, Activit
 		SelectChoices indicators;
 		Tuple tuple;
 
-		finalised = object.getEnrolment().getCardHolder() != null && object.getEnrolment().getCardNibble() != null ? true : false;
+		finalised = this.repository.findOneEnrolmentById(object.getEnrolment().getId()).isFinalised();
 		indicators = SelectChoices.from(Indication.class, object.getIndicator());
 
 		tuple = super.unbind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
-		if (!finalised)
-			tuple.put("readonly", true);
+		tuple.put("readonly", !finalised);
 		tuple.put("enrolment", object.getEnrolment().getCode());
 		tuple.put("indicators", indicators);
-		tuple.put("finalised", finalised);
 
 		super.getResponse().setData(tuple);
 

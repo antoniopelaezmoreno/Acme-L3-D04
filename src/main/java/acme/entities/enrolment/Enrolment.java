@@ -38,7 +38,6 @@ public class Enrolment extends AbstractEntity {
 	@Length(max = 100)
 	protected String			goals;
 
-	@NotNull
 	@Min(0)
 	protected Double			workTime;
 
