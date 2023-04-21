@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import acme.entities.activity.Activity;
 import acme.entities.enrolment.Enrolment;
 import acme.framework.components.models.Tuple;
+import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Student;
 
@@ -43,7 +44,7 @@ public class StudentActivityDeleteService extends AbstractService<Student, Activ
 
 		if (enrolment != null) {
 			student = enrolment.getStudent();
-			finalised = enrolment.getCardHolder() != null && enrolment.getCardNibble() != null ? true : false;
+			finalised = enrolment.isFinalised();
 			status = super.getRequest().getPrincipal().hasRole(student);
 			super.getResponse().setAuthorised(status && finalised);
 		} else
@@ -78,7 +79,18 @@ public class StudentActivityDeleteService extends AbstractService<Student, Activ
 	public void perform(final Activity object) {
 		assert object != null;
 
+		Double duration;
+		Double workTime;
+		Enrolment enrolment;
+
+		duration = (double) MomentHelper.computeDuration(object.getPeriodStart(), object.getPeriodEnd()).toHours();
+		enrolment = object.getEnrolment();
+		workTime = enrolment.getWorkTime();
+
+		enrolment.setWorkTime(workTime - duration);
+
 		this.repository.delete(object);
+		this.repository.save(enrolment);
 	}
 
 	@Override

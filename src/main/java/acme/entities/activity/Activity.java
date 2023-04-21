@@ -35,7 +35,6 @@ public class Activity extends AbstractEntity {
 	@Length(max = 100)
 	protected String			activityAbstract;
 
-	@NotNull
 	protected Indication		indicator;
 
 	@NotNull

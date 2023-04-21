@@ -19,15 +19,13 @@
 	</jstl:otherwise>
 	</jstl:choose>
 	
-	<jstl:if test="${ finalised == true}">
-		<jstl:choose>
-			<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
-				<acme:submit code="student.activity.form.button.update" action="/student/activity/update"/>
-				<acme:submit code="student.activity.form.button.delete" action="/student/activity/delete"/>
-			</jstl:when>
-			<jstl:when test="${_command == 'create'}">
-				<acme:submit code="student.activity.form.button.create" action="/student/activity/create"/>
-			</jstl:when>		
-		</jstl:choose>
-	</jstl:if>
+	<jstl:choose>
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
+			<acme:submit code="student.activity.form.button.update" action="/student/activity/update"/>
+			<acme:submit code="student.activity.form.button.delete" action="/student/activity/delete"/>
+		</jstl:when>
+		<jstl:when test="${_command == 'create'}">
+			<acme:submit code="student.activity.form.button.create" action="/student/activity/create"/>
+		</jstl:when>		
+	</jstl:choose>
 </acme:form>

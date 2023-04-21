@@ -47,13 +47,9 @@ public class StudentEnrolmentListMineService extends AbstractService<Student, En
 	public void unbind(final Enrolment object) {
 		assert object != null;
 
-		boolean finalised;
 		Tuple tuple;
 
-		finalised = object.getCardHolder() != null && object.getCardNibble() != null ? true : false;
-
-		tuple = super.unbind(object, "code");
-		tuple.put("finalised", finalised);
+		tuple = super.unbind(object, "code", "finalised");
 
 		super.getResponse().setData(tuple);
 	}

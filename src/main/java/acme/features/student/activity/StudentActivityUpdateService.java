@@ -46,7 +46,7 @@ public class StudentActivityUpdateService extends AbstractService<Student, Activ
 
 		if (enrolment != null) {
 			student = enrolment.getStudent();
-			finalised = enrolment.getCardHolder() != null && enrolment.getCardNibble() != null ? true : false;
+			finalised = enrolment.isFinalised();
 			status = super.getRequest().getPrincipal().hasRole(student);
 			super.getResponse().setAuthorised(status && finalised);
 		} else
@@ -84,7 +84,28 @@ public class StudentActivityUpdateService extends AbstractService<Student, Activ
 	public void perform(final Activity object) {
 		assert object != null;
 
+		Activity activity;
+		Double oldDuration;
+		Double newDuration;
+		Double duration;
+		Double workTime;
+		Enrolment enrolment;
+
+		activity = this.repository.findOneActivityById(object.getId());
+
+		oldDuration = (double) MomentHelper.computeDuration(activity.getPeriodStart(), object.getPeriodEnd()).toHours();
+		newDuration = (double) MomentHelper.computeDuration(object.getPeriodStart(), object.getPeriodEnd()).toHours();
+		enrolment = object.getEnrolment();
+		workTime = enrolment.getWorkTime();
+		duration = newDuration - oldDuration;
+
+		if (workTime != null)
+			enrolment.setWorkTime(workTime + duration);
+		else
+			enrolment.setWorkTime(newDuration);
+
 		this.repository.save(object);
+		this.repository.save(enrolment);
 	}
 
 	@Override
