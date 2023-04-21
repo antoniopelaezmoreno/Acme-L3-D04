@@ -1,5 +1,5 @@
 
-package acme.features.auditor.auditingRecord;
+package acme.features.auditor.auditingRecords;
 
 import java.util.Collection;
 
@@ -71,22 +71,4 @@ public class AuditorAuditingRecordListService extends AbstractService<Auditor, A
 		super.getResponse().setData(tuple);
 	}
 
-	//	@Override
-	//	public void unbind(final Collection<AuditingRecords> objects) {
-	//		assert objects != null;
-	//
-	//		int auditId;
-	//		Audit audit;
-	//		final boolean showCreate;
-	//		final boolean exceptionalCreate;
-	//
-	//		auditId = super.getRequest().getData("auditId", int.class);
-	//		audit = this.repository.findOneAuditById(auditId);
-	//		showCreate = super.getRequest().getPrincipal().hasRole(audit.getAuditor());
-	//		exceptionalCreate = audit.isPublished();
-	//
-	//		super.getResponse().setGlobal("auditId", auditId);
-	//		super.getResponse().setGlobal("showCreate", showCreate);
-	//		super.getResponse().setGlobal("exceptionalCreate", exceptionalCreate);
-	//	}
 }

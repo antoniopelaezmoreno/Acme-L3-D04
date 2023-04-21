@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
 import acme.entities.course.Course;
+import acme.enums.Mark;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
@@ -104,7 +105,7 @@ public class AuditorAuditCreateService extends AbstractService<Auditor, Audit> {
 	public void perform(final Audit object) {
 		assert object != null;
 
-		object.setMark(null);
+		object.setMark(Mark.N);
 
 		this.repository.save(object);
 

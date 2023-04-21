@@ -2,7 +2,7 @@
 package acme.features.auditor.audit;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,26 +65,16 @@ public class AuditorAuditShowService extends AbstractService<Auditor, Audit> {
 	public void unbind(final Audit object) {
 		assert object != null;
 
-		SelectChoices marks;
-		final SelectChoices courses2;
 		Tuple tuple;
-		Collection<Course> courses;
+		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published");
 
-		marks = SelectChoices.from(Mark.class, object.getMark());
+		final Collection<Course> courses = this.repository.findAllCourses().stream().filter(x -> x.isPublished()).collect(Collectors.toList());
 
-		courses = this.repository.findAllPublishedCourses();
-
-		final List<Course> auditsCourse = this.repository.findAllCoursesFromAudit();
-
-		courses.removeAll(auditsCourse);
-
-		courses.add(object.getCourse());
-
-		courses2 = SelectChoices.from(courses, "title", object.getCourse());
-
-		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published", "course");
-		tuple.put("marks", marks);
+		final SelectChoices courses2 = SelectChoices.from(courses, "title", object.getCourse());
 		tuple.put("courses", courses2);
+
+		final SelectChoices marks = SelectChoices.from(Mark.class, object.getMark());
+		tuple.put("marks", marks);
 
 		super.getResponse().setData(tuple);
 	}

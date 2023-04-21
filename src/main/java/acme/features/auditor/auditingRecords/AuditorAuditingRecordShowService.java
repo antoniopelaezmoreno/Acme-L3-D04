@@ -1,10 +1,12 @@
 
-package acme.features.auditor.auditingRecord;
+package acme.features.auditor.auditingRecords;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.auditingRecords.AuditingRecords;
+import acme.enums.Mark;
+import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
@@ -41,6 +43,7 @@ public class AuditorAuditingRecordShowService extends AbstractService<Auditor, A
 
 		id = super.getRequest().getData("id", int.class);
 		auditingRecord = this.repository.findOneAuditingRecord(id);
+		// super.getResponse().setGlobal("id", id);
 
 		super.getBuffer().setData(auditingRecord);
 	}
@@ -48,12 +51,15 @@ public class AuditorAuditingRecordShowService extends AbstractService<Auditor, A
 	@Override
 	public void unbind(final AuditingRecords auditingRecord) {
 		assert auditingRecord != null;
+		final SelectChoices marks;
 
 		Tuple tuple;
 
-		tuple = super.unbind(auditingRecord, "subject", "assesment", "periodStart", "periodEnd", "mark", "link");
+		marks = SelectChoices.from(Mark.class, auditingRecord.getMark());
 
-		tuple.put("published", auditingRecord.getAudit().isPublished());
+		tuple = super.unbind(auditingRecord, "subject", "assessment", "periodStart", "periodEnd", "mark", "published", "link");
+		tuple.put("marks", marks);
+		// tuple.put("published", auditingRecord.getAudit().isPublished());
 
 		super.getResponse().setData(tuple);
 	}

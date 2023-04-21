@@ -1,17 +1,16 @@
 auditor.auditing-record.list.label.published = Published
-auditors.auditing-record.list.label.subject = Subject
-auditors.auditing-record.list.label.assesment = Assesment
-auditors.auditing-record.list.label.periodStart = Start date
-auditors.auditing-record.list.label.periodEnd = End date
+auditor.auditing-record.list.label.subject = Subject
+auditor.auditing-record.list.label.assessment = Assessment
+auditor.auditing-record.list.label.periodStart = Start date
+auditor.auditing-record.list.label.periodEnd = End date
 auditor.auditing-record.list.label.mark = Mark
 auditor.auditing-record.list.label.link = Link
-auditors.auditing-record.list.button.create = Create
+auditor.auditing-record.list.button.create = Create
 
-auditor.auditing-record.data = Auditing record data
 auditor.auditing-record.form.label.subject = Subject
-auditor.auditing-record.form.label.assesment = Assesment
-auditor.auditing-record.form.label.periodStart = Beginning of assesment date
-auditor.auditing-record.form.label.periodEnd = End of assesment date
+auditor.auditing-record.form.label.assessment = Assessment
+auditor.auditing-record.form.label.periodStart = Beginning of assessment date
+auditor.auditing-record.form.label.periodEnd = End of assessment date
 auditor.auditing-record.form.label.mark = Mark
 auditor.auditing-record.form.label.link = Link
 auditor.auditing-record.form.label.published = Published
