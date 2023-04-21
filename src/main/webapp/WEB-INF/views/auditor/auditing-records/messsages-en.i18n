@@ -1,0 +1,24 @@
+auditor.auditing-record.list.label.published = Published
+auditor.auditing-record.list.label.subject = Subject
+auditor.auditing-record.list.label.assessment = Assessment
+auditor.auditing-record.list.label.periodStart = Start date
+auditor.auditing-record.list.label.periodEnd = End date
+auditor.auditing-record.list.label.mark = Mark
+auditor.auditing-record.list.label.link = Link
+auditor.auditing-record.list.button.create = Create
+
+auditor.auditing-record.form.label.subject = Subject
+auditor.auditing-record.form.label.assessment = Assessment
+auditor.auditing-record.form.label.periodStart = Beginning of assessment date
+auditor.auditing-record.form.label.periodEnd = End of assessment date
+auditor.auditing-record.form.label.mark = Mark
+auditor.auditing-record.form.label.link = Link
+auditor.auditing-record.form.label.published = Published
+
+auditor.auditing-record.form.button.create = Create
+auditor.auditing-record.form.button.update = Update
+auditor.auditing-record.form.button.delete = Delete
+auditor.auditing-record.form.label.confirmation = Confirm
+auditor.auditing-record.form.chooseCourse = Select course id
+auditor.auditing-record.form.course.nullError = The course must exist
+auditor.auditing-record.form.code.repeated = The code must not repeat

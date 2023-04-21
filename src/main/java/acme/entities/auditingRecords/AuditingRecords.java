@@ -45,6 +45,8 @@ public class AuditingRecords extends AbstractEntity {
 
 	protected Mark				mark;
 
+	protected boolean			published;
+
 	@URL
 	protected String			link;
 

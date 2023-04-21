@@ -1,8 +1,8 @@
 
-package acme.features.auditor.audit;
+package acme.features.authenticated.audit;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,18 +10,19 @@ import org.springframework.stereotype.Service;
 import acme.entities.audit.Audit;
 import acme.entities.course.Course;
 import acme.enums.Mark;
+import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuditorAuditShowService extends AbstractService<Auditor, Audit> {
+public class AuthenticatedAuditShowService extends AbstractService<Authenticated, Audit> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuditorAuditRepository repository;
+	protected AuthenticatedAuditRepository repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -38,14 +39,12 @@ public class AuditorAuditShowService extends AbstractService<Auditor, Audit> {
 	@Override
 	public void authorise() {
 		boolean status;
-		int masterId;
+		int id;
 		Audit audit;
-		Auditor auditor;
 
-		masterId = super.getRequest().getData("id", int.class);
-		audit = this.repository.findOneAuditById(masterId);
-		auditor = audit == null ? null : audit.getAuditor();
-		status = super.getRequest().getPrincipal().hasRole(auditor);
+		id = super.getRequest().getData("id", int.class);
+		audit = this.repository.findOneAuditById(id);
+		status = audit != null && audit.getCourse() != null;
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -65,16 +64,32 @@ public class AuditorAuditShowService extends AbstractService<Auditor, Audit> {
 	public void unbind(final Audit object) {
 		assert object != null;
 
+		SelectChoices marks;
+		final SelectChoices courses2;
 		Tuple tuple;
-		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published");
+		Collection<Course> courses;
 
-		final Collection<Course> courses = this.repository.findAllCourses().stream().filter(x -> x.isPublished()).collect(Collectors.toList());
+		marks = SelectChoices.from(Mark.class, object.getMark());
 
-		final SelectChoices courses2 = SelectChoices.from(courses, "title", object.getCourse());
+		courses = this.repository.findAllCourses();
+
+		final List<Course> auditsCourse = this.repository.findAllCoursesFromAudit();
+
+		courses.removeAll(auditsCourse);
+
+		courses.add(object.getCourse());
+
+		courses2 = SelectChoices.from(courses, "title", object.getCourse());
+
+		final Auditor auditor = this.repository.findAuditorByAuditId(object.getId());
+
+		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published", "course");
+		tuple.put("marks", marks);
 		tuple.put("courses", courses2);
 
-		final SelectChoices marks = SelectChoices.from(Mark.class, object.getMark());
-		tuple.put("marks", marks);
+		tuple.put("userName", auditor.getUserAccount().getUsername());
+		tuple.put("firm", auditor.getFirm());
+		tuple.put("link", auditor.getLink());
 
 		super.getResponse().setData(tuple);
 	}

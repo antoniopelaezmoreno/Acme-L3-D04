@@ -33,6 +33,7 @@ master.menu.authenticated = Authenticated
 master.menu.authenticated.note.list = List Notes
 master.menu.authenticated.offer.list = List offers
 master.menu.authenticated.bulletin.list = List bulletins
+master.menu.authenticated.audit.list = List audits
 master.menu.anonymous.course.list = List Courses
 master.menu.anonymous.peep.list = List Peeps
 

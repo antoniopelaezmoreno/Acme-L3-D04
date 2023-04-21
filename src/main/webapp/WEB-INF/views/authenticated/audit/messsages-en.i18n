@@ -1,0 +1,16 @@
+authenticated.audit.list.label.code = Código
+authenticated.audit.list.label.conclusion = Conclusión
+
+authenticated.audit.data = Datos de la auditoría
+authenticated.audit.form.label.code = Código
+authenticated.audit.form.label.conclusion = Conclusión
+authenticated.audit.form.label.strongPoints = PUntos fuertes
+authenticated.audit.form.label.weakPoints = Puntos débiles
+authenticated.audit.form.label.mark = Nota
+authenticated.audit.form.label.course = Curso
+authenticated.audit.form.label.published = Publicado
+
+auditor.audit.auditor.data = Datos del auditor
+auditor.audit.form.label.auditor.userName = Nombre de usuario
+auditor.audit.form.label.auditor.firm = Firma
+auditor.audit.form.label.auditor.link = Link

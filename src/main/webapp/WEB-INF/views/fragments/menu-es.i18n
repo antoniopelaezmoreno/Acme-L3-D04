@@ -33,6 +33,7 @@ master.menu.authenticated = Autenticado
 master.menu.authenticated.note.list = Listar Notas
 master.menu.authenticated.offer.list = Ver ofertas
 master.menu.authenticated.bulletin.list = Ver boletines
+master.menu.authenticated.audit.list = Ver auditorias
 master.menu.anonymous.course.list = Listar Cursos
 master.menu.anonymous.peep.list = Listar Peeps
 

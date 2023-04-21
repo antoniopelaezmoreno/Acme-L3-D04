@@ -41,8 +41,20 @@ public interface AuditorAuditRepository extends AbstractRepository {
 	@Query("select c from Course c where c.id = :id")
 	Course findCourse(int id);
 
+	@Query("select a.course from Audit a where a.id = :id")
+	Course findCourseByAudit(int id);
+
+	@Query("select c from Course c where c.published = true")
+	Collection<Course> findAllPublishedCourses();
+
 	@Query("select c from Course c")
 	List<Course> findAllCourses();
+
+	@Query("select a from Audit a where a.course != null")
+	Collection<Audit> findAuditsWithCourses();
+
+	@Query("select a from Audit a where a.auditor.id = :auditorId")
+	Collection<Audit> findCoursesAssociatedWithAudits();
 
 	@Query("SELECT COUNT(a) = 0 FROM Audit a JOIN a.course c WHERE c.id = :id")
 	boolean checkEmptyCourseById(int id);

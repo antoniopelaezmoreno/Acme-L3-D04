@@ -1,45 +1,44 @@
 
-package acme.features.auditor.audit;
+package acme.features.auditor.auditingRecords;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import acme.entities.audit.Audit;
+import acme.entities.auditingRecords.AuditingRecords;
 import acme.framework.controllers.AbstractController;
 import acme.roles.Auditor;
 
 @Controller
-public class AuditorAuditController extends AbstractController<Auditor, Audit> {
+public class AuditorAuditingRecordController extends AbstractController<Auditor, AuditingRecords> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuditorAuditListMineService	listMineService;
+	AuditorAuditingRecordListService	listService;
 
 	@Autowired
-	protected AuditorAuditShowService		showService;
+	AuditorAuditingRecordShowService	showService;
 
 	@Autowired
-	protected AuditorAuditCreateService		createService;
+	AuditorAuditingRecordCreateService	createService;
 
 	@Autowired
-	protected AuditorAuditUpdateService		updateService;
+	AuditorAuditingRecordUpdateService	updateService;
 
 	@Autowired
-	protected AuditorAuditDeleteService		deleteService;
+	AuditorAuditingRecordDeleteService	deleteService;
 
 	// Constructors -----------------------------------------------------------
 
 
 	@PostConstruct
 	protected void initialise() {
-		super.addBasicCommand("list", this.listMineService);
+		super.addBasicCommand("list", this.listService);
 		super.addBasicCommand("show", this.showService);
 		super.addBasicCommand("create", this.createService);
 		super.addBasicCommand("update", this.updateService);
 		super.addBasicCommand("delete", this.deleteService);
 	}
-
 }
