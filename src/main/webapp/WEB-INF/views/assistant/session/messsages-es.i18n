@@ -2,7 +2,6 @@ assistant.session.list.label.title = Título
 assistant.session.list.label.indication = Tipo
 assistant.session.list.label.periodStart = Inicio
 assistant.session.list.label.periodEnd = Fin
-assistant.session.list.label.publish = Publicado
 assistant.session.list.label.published = Publicado
 assistant.session.list.button.create = Crear
 
