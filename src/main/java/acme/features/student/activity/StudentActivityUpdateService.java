@@ -84,18 +84,25 @@ public class StudentActivityUpdateService extends AbstractService<Student, Activ
 	public void perform(final Activity object) {
 		assert object != null;
 
+		Activity activity;
+		Double oldDuration;
+		Double newDuration;
 		Double duration;
 		Double workTime;
 		Enrolment enrolment;
 
-		duration = (double) MomentHelper.computeDuration(object.getPeriodStart(), object.getPeriodEnd()).toHours();
+		activity = this.repository.findOneActivityById(object.getId());
+
+		oldDuration = (double) MomentHelper.computeDuration(activity.getPeriodStart(), object.getPeriodEnd()).toHours();
+		newDuration = (double) MomentHelper.computeDuration(object.getPeriodStart(), object.getPeriodEnd()).toHours();
 		enrolment = object.getEnrolment();
 		workTime = enrolment.getWorkTime();
+		duration = newDuration - oldDuration;
 
 		if (workTime != null)
 			enrolment.setWorkTime(workTime + duration);
 		else
-			enrolment.setWorkTime(duration);
+			enrolment.setWorkTime(newDuration);
 
 		this.repository.save(object);
 		this.repository.save(enrolment);
@@ -105,15 +112,12 @@ public class StudentActivityUpdateService extends AbstractService<Student, Activ
 	public void unbind(final Activity object) {
 		assert object != null;
 
-		final boolean finalised;
 		SelectChoices indicators;
 		Tuple tuple;
 
 		indicators = SelectChoices.from(Indication.class, object.getIndicator());
-		//finalised = this.repository.findOneEnrolmentById(object.getEnrolment().getId()).isFinalised();
 
 		tuple = super.unbind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
-		//tuple.put("readonly", !finalised);
 		tuple.put("enrolment", object.getEnrolment().getCode());
 		tuple.put("indicators", indicators);
 

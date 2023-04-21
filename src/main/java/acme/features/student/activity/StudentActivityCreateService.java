@@ -42,6 +42,10 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 
 		object = new Activity();
 
+		object.setTitle("");
+		object.setActivityAbstract("");
+		object.setLink("");
+
 		super.getBuffer().setData(object);
 	}
 
@@ -66,6 +70,7 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 
 		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
 			super.state(MomentHelper.isAfter(object.getPeriodEnd(), object.getPeriodStart()), "periodEnd", "student.activity.form.error.periodEnd");
+
 	}
 
 	@Override
