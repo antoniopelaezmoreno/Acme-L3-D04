@@ -32,6 +32,7 @@ master.menu.anonymous.peep.list = Listar Peeps
 master.menu.authenticated = Autenticado
 master.menu.authenticated.note.list = Listar Notas
 master.menu.authenticated.offer.list = Ver ofertas
+master.menu.authenticated.bulletin.list = Ver boletines
 master.menu.anonymous.course.list = Listar Cursos
 master.menu.anonymous.peep.list = Listar Peeps
 
@@ -48,16 +49,23 @@ master.menu.assistant.dashboard = Panel
 master.menu.administrator = Administrador
 master.menu.administrator.dashboard = Panel de indicadores
 master.menu.administrator.user-accounts = Cuentas de usuario
+master.menu.administrator.system-configuration = Configuración del Sistema
 master.menu.administrator.populate-initial = Poblar BD (inicial)
 master.menu.administrator.populate-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-down = Parar el sistema
 master.menu.administrator.offer.list = Ver ofertas
+master.menu.administrator.bulletin.create = Crear boletines
 master.menu.administrator.banner.list = Listar banners
 
 # master.menu.lecturer ########################################################
 
 master.menu.lecturer = Profesor
 master.menu.lecturer.course-list-mine = Listar mis cursos
+
+# master.menu.auditor ########################################################
+
+master.menu.auditor = Auditor
+master.menu.auditor.audit-list-mine = Listar mis auditorías
 
 # master.menu.provider ########################################################
 
@@ -69,6 +77,19 @@ master.menu.anonymous.favourite-link-jaime = 29500154D:Garcia Garcia, Jaime
 
 master.menu.consumer = Consumidor
 master.menu.consumer.favourite-link = Enlace favorito
+
+# master.menu.company ##########################################################
+
+master.menu.company = Empresa
+master.menu.company.practicum.list = Listar Prácticas
+
+# master.menu.student ##########################################################
+
+master.menu.student = Estudiante
+master.menu.student.course.list = Ver cursos
+master.menu.student.enrolment.list-mine = Mis matrículas
+master.menu.student.activity.list-mine = Mis actividades
+
 
 # master.menu.assistant ##########################################################
 
@@ -87,5 +108,9 @@ master.menu.user-account.assistant = Datos de asistente
 master.menu.user-account.become-assistant = Hazte asistente
 master.menu.user-account.become-lecturer = Hazte profesor
 master.menu.user-account.lecturer = Datos de profesor
+master.menu.user-account.become-auditor = Hazte auditor
+master.menu.user-account.auditor = Datos de auditor
 master.menu.user-account.become-student = Hazte estudiante
 master.menu.user-account.student = Datos de estudiante
+master.menu.user-account.become-company = Hazte empresa
+master.menu.user-account.company = Datos de la empresa
