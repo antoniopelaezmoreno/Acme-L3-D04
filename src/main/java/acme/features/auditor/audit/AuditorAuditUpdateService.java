@@ -2,15 +2,14 @@
 package acme.features.auditor.audit;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
 import acme.entities.course.Course;
-import acme.enums.Mark;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
@@ -28,27 +27,27 @@ public class AuditorAuditUpdateService extends AbstractService<Auditor, Audit> {
 
 
 	@Override
-	public void authorise() {
-		boolean status;
-		int masterId;
-		Audit Audit;
-		Auditor Auditor;
-
-		masterId = super.getRequest().getData("id", int.class);
-		Audit = this.repository.findOneAuditById(masterId);
-		Auditor = Audit == null ? null : Audit.getAuditor();
-		status = super.getRequest().getPrincipal().hasRole(Auditor);
-
-		super.getResponse().setAuthorised(status && !Audit.isPublished());
-	}
-
-	@Override
 	public void check() {
 		boolean status;
 
 		status = super.getRequest().hasData("id", int.class);
 
 		super.getResponse().setChecked(status);
+	}
+
+	@Override
+	public void authorise() {
+		boolean status;
+		int masterId;
+		Audit audit;
+		Auditor auditor;
+
+		masterId = super.getRequest().getData("id", int.class);
+		audit = this.repository.findOneAuditById(masterId);
+		auditor = audit == null ? null : audit.getAuditor();
+		status = super.getRequest().getPrincipal().hasRole(auditor);
+
+		super.getResponse().setAuthorised(status && !audit.isPublished());
 	}
 
 	@Override
@@ -66,7 +65,12 @@ public class AuditorAuditUpdateService extends AbstractService<Auditor, Audit> {
 	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published");
+		final Course course = this.repository.findCourse(super.getRequest().getData("course", int.class));
+
+		super.bind(object, "code", "conclusion", "strongPoints", "weakPoints", "published");
+
+		object.setCourse(course);
+
 	}
 
 	@Override
@@ -100,25 +104,20 @@ public class AuditorAuditUpdateService extends AbstractService<Auditor, Audit> {
 	public void unbind(final Audit object) {
 		assert object != null;
 
-		SelectChoices marks;
-		final SelectChoices courses2;
+		// SelectChoices marks;
+		// final List<Course> auditsCourse = this.repository.findAllCoursesFromAudit();
+		// courses.removeAll(auditsCourse);
+		// courses.add(object.getCourse());
+		// marks = SelectChoices.from(Mark.class, object.getMark());
+		// tuple.put("marks", marks);
+
 		Tuple tuple;
-		Collection<Course> courses;
 
-		marks = SelectChoices.from(Mark.class, object.getMark());
+		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "published");
 
-		courses = this.repository.findAllCourses();
+		final Collection<Course> courses = this.repository.findAllCourses().stream().filter(x -> x.isPublished()).collect(Collectors.toList());
 
-		final List<Course> auditsCourse = this.repository.findAllCoursesFromAudit();
-
-		courses.removeAll(auditsCourse);
-
-		courses.add(object.getCourse());
-
-		courses2 = SelectChoices.from(courses, "title", object.getCourse());
-
-		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published", "course");
-		tuple.put("marks", marks);
+		final SelectChoices courses2 = SelectChoices.from(courses, "title", object.getCourse());
 		tuple.put("courses", courses2);
 
 		super.getResponse().setData(tuple);

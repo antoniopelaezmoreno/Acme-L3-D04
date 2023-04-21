@@ -2,12 +2,14 @@
 package acme.features.auditor.audit;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
 import acme.entities.auditingRecords.AuditingRecords;
+import acme.entities.course.Course;
 import acme.enums.Indication;
 import acme.enums.Mark;
 import acme.framework.components.accounts.Principal;
@@ -40,13 +42,13 @@ public class AuditorAuditPublishService extends AbstractService<Auditor, Audit> 
 	public void authorise() {
 		final boolean status;
 		int id;
-		Audit Audit;
+		Audit audit;
 		Principal principal;
 
 		id = super.getRequest().getData("id", int.class);
 		principal = super.getRequest().getPrincipal();
-		Audit = this.repository.findOneAuditById(id);
-		status = Audit != null && !Audit.isPublished() && principal.hasRole(Audit.getAuditor());
+		audit = this.repository.findOneAuditById(id);
+		status = audit != null && !audit.isPublished() && principal.hasRole(audit.getAuditor());
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -66,7 +68,7 @@ public class AuditorAuditPublishService extends AbstractService<Auditor, Audit> 
 	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published", "course");
+		super.bind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "course", "published");
 	}
 
 	@Override
@@ -95,13 +97,24 @@ public class AuditorAuditPublishService extends AbstractService<Auditor, Audit> 
 	public void unbind(final Audit object) {
 		assert object != null;
 
-		SelectChoices choices;
+		SelectChoices marks;
+		SelectChoices courses2;
 		Tuple tuple;
+		Collection<Course> courses;
 
-		choices = SelectChoices.from(Mark.class, object.getMark());
+		courses = this.repository.findAllPublishedCourses();
+		final List<Course> auditsCourse = this.repository.findAllCoursesFromAudit();
+
+		courses.removeAll(auditsCourse);
+		courses.add(object.getCourse());
+
+		courses2 = SelectChoices.from(courses, "title", object.getCourse());
+
+		marks = SelectChoices.from(Mark.class, object.getMark());
 
 		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published", "course");
-		tuple.put("marks", choices);
+		tuple.put("marks", marks);
+		tuple.put("courses", courses2);
 
 		super.getResponse().setData(tuple);
 	}

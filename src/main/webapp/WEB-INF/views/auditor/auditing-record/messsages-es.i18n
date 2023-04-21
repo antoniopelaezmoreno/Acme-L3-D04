@@ -1,0 +1,25 @@
+auditor.auditing-record.list.label.published = Publicar
+auditors.auditing-record.list.label.subject = Asignatura
+auditors.auditing-record.list.label.assesment = Evaluación
+auditors.auditing-record.list.label.periodStart = Fecha inicio de evaluación
+auditors.auditing-record.list.label.periodEnd = Fecha finalización de evaluación
+auditor.auditing-record.list.label.mark = Nota
+auditor.auditing-record.list.label.link = Enlace
+auditors.auditing-record.list.button.create = Crear
+
+auditor.auditing-record.data = Datos del registro de auditoria
+auditor.auditing-record.form.label.subject = Asignatura
+auditor.auditing-record.form.label.assesment = Evaluación
+auditor.auditing-record.form.label.periodStart = Fecha inicio de evaluación
+auditor.auditing-record.form.label.periodEnd = Fecha finalización de evaluación
+auditor.auditing-record.form.label.mark = Nota
+auditor.auditing-record.form.label.link = Enlace
+auditor.auditing-record.form.label.published = Published
+
+auditor.auditing-record.form.button.create = Crear
+auditor.auditing-record.form.button.update = Actualizar
+auditor.auditing-record.form.button.delete = Borrar
+auditor.auditing-record.form.label.confirmation = Confirmar
+auditor.auditing-record.form.chooseCourse = Seleccionar ID del curso
+auditor.auditing-record.form.course.nullError = El curso debe existir
+auditor.auditing-record.form.code.repeated = El código no puede repetirse

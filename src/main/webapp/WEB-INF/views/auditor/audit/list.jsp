@@ -4,9 +4,9 @@
 <%@taglib prefix="acme" uri="http://www.the-acme-framework.org/"%>
 
 <acme:list>
-	<acme:list-column code="auditor.audit.list.label.code" path="code" width="30%"/>
-	<acme:list-column code="auditor.audit.list.label.published" path="published" width="40%"/>
-	<acme:list-column code="auditor.audit.list.label.course" path="course" width="30%"/>
+	<acme:list-column code="auditor.audit.list.label.code" path="code"/>
+	<acme:list-column code="auditor.audit.list.label.published" path="published"/>
+	<acme:list-column code="auditor.audit.list.label.course" path="course"/>
 </acme:list>
 
 <acme:button code="auditor.audit.form.button.create" action="/auditor/audit/create"/>

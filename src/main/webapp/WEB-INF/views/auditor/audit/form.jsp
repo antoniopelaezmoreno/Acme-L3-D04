@@ -5,13 +5,24 @@
 
 <acme:form>
 
+	<acme:input-checkbox code="auditor.audit.form.label.published" path="published"/>
 	<acme:input-textbox code="auditor.audit.form.label.code" path="code"/>	
 	<acme:input-textarea code="auditor.audit.form.label.conclusion" path="conclusion"/>
 	<acme:input-textarea code="auditor.audit.form.label.strongPoints" path="strongPoints"/>
 	<acme:input-textarea code="auditor.audit.form.label.weakPoints" path="weakPoints"/>
-	<acme:input-select code="auditor.audit.form.label.mark" path="mark" choices="${marks}"/>
-	<acme:input-select code="auditor.audit.form.label.course" path="course" choices="${courses}"/>
-	<acme:input-checkbox code="auditor.audit.form.label.published" path="published"/>
+	
+	
+	<jstl:if test="${_command == 'create'}">
+		<acme:input-select code="auditor.audit.form.label.course" path="course" choices="${courses}"/>
+	</jstl:if>
+	
+	<jstl:if test="${_command == 'show'}">
+		<acme:input-select code="auditor.audit.form.label.course" path="course" choices="${courses}"/>
+		<acme:button code="auditor.audit.auditingRecords" action="/auditor/auditing-record/list?masterId=${id}"/>
+	</jstl:if>
+
+	<br>
+	<br>
 
 	<jstl:choose>
 		<jstl:when test="${_command == 'create'}">
@@ -19,9 +30,10 @@
 		</jstl:when>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
 			<jstl:if test="${published == false}">
+				<acme:button code="auditor.audit.auditingRecords" action="/auditor/auditing-record/list?masterId=${id}"/>
 				<acme:submit code="auditor.audit.form.button.update" action="/auditor/audit/update"/>
 				<acme:submit code="auditor.audit.form.button.delete" action="/auditor/audit/delete"/>
-			</jstl:if>		
+			</jstl:if>			
 		</jstl:when>	
 	</jstl:choose>
 

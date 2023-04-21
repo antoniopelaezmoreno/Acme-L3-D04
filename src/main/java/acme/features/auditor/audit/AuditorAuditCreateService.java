@@ -2,15 +2,14 @@
 package acme.features.auditor.audit;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
 import acme.entities.course.Course;
-import acme.enums.Mark;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
@@ -56,13 +55,11 @@ public class AuditorAuditCreateService extends AbstractService<Auditor, Audit> {
 	@Override
 	public void bind(final Audit object) {
 		assert object != null;
-		int courseId;
-		Course course;
 
-		courseId = super.getRequest().getData("course", int.class);
-		course = this.repository.findCourse(courseId);
+		final Course course = this.repository.findCourse(super.getRequest().getData("course", int.class));
 
-		super.bind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published");
+		super.bind(object, "code", "conclusion", "strongPoints", "weakPoints", "published");
+
 		object.setCourse(course);
 
 	}
@@ -71,20 +68,35 @@ public class AuditorAuditCreateService extends AbstractService<Auditor, Audit> {
 	public void validate(final Audit object) {
 		assert object != null;
 
+		//		if (!super.getBuffer().getErrors().hasErrors("course"))
+		//			super.state(object.getCourse() != null, "courseId", "auditor.audit.form.course.nullError");
+
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
 			Optional<Audit> existing;
 
 			existing = this.repository.findOneAuditByCode(object.getCode());
 			if (existing.isPresent())
 				super.state(existing == null, "code", "auditor.audit.form.error.duplicated");
+
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("course")) {
-			boolean emptyCourse;
 
-			emptyCourse = this.repository.checkEmptyCourseById(object.getCourse().getId());
-			super.state(emptyCourse, "course", "javax.validation.constraints.AssertTrue.message");
 		}
+
+		//		if (!super.getBuffer().getErrors().hasErrors("course")) {
+		//			boolean emptyCourse;
+		//
+		//			emptyCourse = this.repository.checkEmptyCourseById(object.getCourse().getId());
+		//			super.state(emptyCourse, "course", "javax.validation.constraints.AssertTrue.message");
+		//		}
+
+		//		if (!super.getBuffer().getErrors().hasErrors("course")) {
+		//			boolean emptyCourse;
+		//
+		//			emptyCourse = this.repository.checkEmptyCourseById(object.getCourse().getId());
+		//			super.state(emptyCourse, "course", "javax.validation.constraints.AssertTrue.message");
+		//		}
 
 	}
 
@@ -92,39 +104,37 @@ public class AuditorAuditCreateService extends AbstractService<Auditor, Audit> {
 	public void perform(final Audit object) {
 		assert object != null;
 
+		object.setMark(null);
+
 		this.repository.save(object);
+
 	}
 
 	@Override
 	public void unbind(final Audit object) {
 		assert object != null;
 
-		SelectChoices marks;
-		final SelectChoices courses2;
 		Tuple tuple;
-		Collection<Course> courses;
 
-		marks = SelectChoices.from(Mark.class, object.getMark());
+		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "published");
 
-		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published");
-		tuple.put("marks", marks);
+		final Collection<Course> courses = this.repository.findAllCourses().stream().filter(x -> x.isPublished()).collect(Collectors.toList());
 
-		courses = this.repository.findAllCourses();
+		//		final Collection<Audit> auditsWithCourses = this.repository.findAuditsWithCourses();
 
-		final List<Course> auditsCourse = this.repository.findAllCoursesFromAudit();
+		//		final Collection<Course> coursesAux = null;
+		//		Course c;
+		//		for (final Audit a : auditsWithCourses) {
+		//			c = this.repository.findCourseByAudit(a.getId());
+		//			coursesAux.add(c);
+		//		}
+		//		
+		//		courses.removeAll()
 
-		courses.removeAll(auditsCourse);
-
-		courses2 = SelectChoices.from(courses, "title", object.getCourse());
+		final SelectChoices courses2 = SelectChoices.from(courses, "title", object.getCourse());
 		tuple.put("courses", courses2);
 
 		super.getResponse().setData(tuple);
 	}
-
-	//	@Override
-	//	public void onSuccess() {
-	//		if (super.getRequest().getMethod().equals(HttpMethod.POST))
-	//			PrincipalHelper.handleUpdate();
-	//	}
 
 }
