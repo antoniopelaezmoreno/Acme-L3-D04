@@ -1,10 +1,13 @@
 
 package acme.features.lecturer.course;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.course.Course;
+import acme.entities.lecture.Lecture;
 import acme.enums.Indication;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -54,6 +57,22 @@ public class LecturerCourseShowService extends AbstractService<Lecturer, Course>
 		id = super.getRequest().getData("id", int.class);
 		object = this.repository.findOneCourseById(id);
 
+		final Collection<Lecture> lectures = this.repository.findManyLecturesByCourseId(id);
+		int numTeoricos = 0;
+		int numPracticos = 0;
+		for (final Lecture lecture : lectures)
+			if (lecture.getIndicator().equals(Indication.THEORETICAL))
+				numTeoricos++;
+			else if (lecture.getIndicator().equals(Indication.HANDS_ON))
+				numPracticos++;
+		if (numTeoricos > numPracticos)
+			object.setIndicator(Indication.THEORETICAL);
+		else if (numPracticos > numTeoricos)
+			object.setIndicator(Indication.HANDS_ON);
+		else
+			object.setIndicator(Indication.BALANCED);
+
+		this.repository.save(object);
 		super.getBuffer().setData(object);
 	}
 

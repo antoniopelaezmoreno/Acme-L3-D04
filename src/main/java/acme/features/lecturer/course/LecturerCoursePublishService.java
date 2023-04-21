@@ -102,6 +102,25 @@ public class LecturerCoursePublishService extends AbstractService<Lecturer, Cour
 	public void perform(final Course object) {
 		assert object != null;
 
+		int id;
+
+		id = super.getRequest().getData("id", int.class);
+
+		final Collection<Lecture> lectures = this.repository.findManyLecturesByCourseId(id);
+		int numTeoricos = 0;
+		int numPracticos = 0;
+		for (final Lecture lecture : lectures)
+			if (lecture.getIndicator().equals(Indication.THEORETICAL))
+				numTeoricos++;
+			else if (lecture.getIndicator().equals(Indication.HANDS_ON))
+				numPracticos++;
+		if (numTeoricos > numPracticos)
+			object.setIndicator(Indication.THEORETICAL);
+		else if (numPracticos > numTeoricos)
+			object.setIndicator(Indication.HANDS_ON);
+		else
+			object.setIndicator(Indication.BALANCED);
+
 		object.setPublished(true);
 		this.repository.save(object);
 	}

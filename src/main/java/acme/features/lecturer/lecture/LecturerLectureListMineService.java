@@ -23,7 +23,11 @@ public class LecturerLectureListMineService extends AbstractService<Lecturer, Le
 
 	@Override
 	public void check() {
-		super.getResponse().setChecked(true);
+		boolean status;
+
+		status = super.getRequest().hasData("masterId", int.class);
+
+		super.getResponse().setChecked(status);
 	}
 
 	@Override
