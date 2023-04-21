@@ -6,7 +6,11 @@ import java.util.Map;
 import acme.Statistics;
 import acme.enums.Indication;
 import acme.framework.data.AbstractForm;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class LecturerDashboard extends AbstractForm {
 
 	/**

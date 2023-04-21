@@ -81,8 +81,39 @@ public class LecturerLectureUpdateService extends AbstractService<Lecturer, Lect
 	@Override
 	public void perform(final Lecture object) {
 		assert object != null;
+		//
+		//		Course course;
+		//		int masterId;
+		//		Indication indicator;
 
 		this.repository.save(object);
+
+		//		masterId = super.getRequest().getData("masterId", int.class);
+		//		course = this.repository.findOneCourseByCourseId(masterId);
+		//		final Collection<Lecture> lectures = this.repository.findManyLecturesByCourseId(masterId);
+		//		lectures.remove(object);
+		//		int numTeoricos = 0;
+		//		int numPracticos = 0;
+		//		for (final Lecture lecture : lectures)
+		//			if (lecture.getIndicator().equals(Indication.THEORETICAL))
+		//				numTeoricos++;
+		//			else if (lecture.getIndicator().equals(Indication.HANDS_ON))
+		//				numPracticos++;
+		//
+		//		indicator = super.getRequest().getData("indicator", Indication.class);
+		//		if (indicator.equals(Indication.THEORETICAL))
+		//			numTeoricos++;
+		//		else if (indicator.equals(Indication.HANDS_ON))
+		//			numPracticos++;
+		//
+		//		if (numTeoricos > numPracticos)
+		//			course.setIndicator(Indication.THEORETICAL);
+		//		else if (numPracticos > numTeoricos)
+		//			course.setIndicator(Indication.HANDS_ON);
+		//		else
+		//			course.setIndicator(Indication.BALANCED);
+
+		//		this.repository.save(course);
 	}
 
 	@Override
