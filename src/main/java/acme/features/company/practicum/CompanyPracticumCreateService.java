@@ -2,6 +2,7 @@
 package acme.features.company.practicum;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class CompanyPracticumCreateService extends AbstractService<Company, Prac
 		object = new Practicum();
 		object.setPublished(false);
 		object.setCompany(company);
+		object.setEstimatedTotalTime(0.);
 
 		super.getBuffer().setData(object);
 	}
@@ -65,6 +67,15 @@ public class CompanyPracticumCreateService extends AbstractService<Company, Prac
 	@Override
 	public void validate(final Practicum object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+			Optional<Practicum> optPracticum;
+
+			optPracticum = this.repository.findPracticumByCode(object.getCode());
+			if (optPracticum.isPresent())
+				super.state(optPracticum == null, "code", "company.practicum.form.error.duplicated");
+
+		}
 	}
 
 	@Override
@@ -82,12 +93,11 @@ public class CompanyPracticumCreateService extends AbstractService<Company, Prac
 		final Collection<Course> courses;
 		final Tuple tuple;
 
-		courses = this.repository.findAllCourses().stream().filter(x -> !x.getIndicator().equals(Indication.THEORETICAL)).collect(Collectors.toList());
+		courses = this.repository.findAllCourses().stream().filter(x -> x.getIndicator().equals(Indication.HANDS_ON)).collect(Collectors.toList());
 		choice = SelectChoices.from(courses, "title", object.getCourse());
 
 		tuple = super.unbind(object, "code", "title", "practicumAbstract", "goals", "estimatedTotalTime", "published", "company");
 		tuple.put("courses", choice);
-		tuple.put("course", choice.getSelected().getKey());
 		tuple.put("company", object.getCompany().getName());
 
 		super.getResponse().setData(tuple);

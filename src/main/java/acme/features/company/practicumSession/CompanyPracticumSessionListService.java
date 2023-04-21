@@ -21,19 +21,23 @@ public class CompanyPracticumSessionListService extends AbstractService<Company,
 
 	@Override
 	public void check() {
-		super.getResponse().setChecked(true);
+		boolean status;
+
+		status = super.getRequest().hasData("masterId", int.class);
+
+		super.getResponse().setChecked(status);
 	}
 
 	@Override
 	public void authorise() {
 		Practicum object;
-		int id;
+		int masterId;
 		boolean status;
 		Company company;
 
 		company = this.repository.findCompanyByUserId(super.getRequest().getPrincipal().getAccountId());
-		id = super.getRequest().getData("id", int.class);
-		object = this.repository.findPracticumById(id);
+		masterId = super.getRequest().getData("masterId", int.class);
+		object = this.repository.findPracticumById(masterId);
 		status = object != null && super.getRequest().getPrincipal().hasRole(Company.class) && object.getCompany().getId() == company.getId();
 		super.getResponse().setAuthorised(status);
 	}
@@ -41,11 +45,18 @@ public class CompanyPracticumSessionListService extends AbstractService<Company,
 	@Override
 	public void load() {
 		Collection<PracticumSession> objects;
-		int id;
+		int masterId;
+		boolean masterPublished;
+		Practicum practicum;
 
-		id = super.getRequest().getData("id", int.class);
-		objects = this.repository.findAllSessionByPracticumId(id);
+		masterId = super.getRequest().getData("masterId", int.class);
+		objects = this.repository.findAllSessionByPracticumId(masterId);
 
+		practicum = this.repository.findPracticumById(masterId);
+		masterPublished = practicum.isPublished();
+
+		super.getResponse().setGlobal("masterId", masterId);
+		super.getResponse().setGlobal("masterPublished", masterPublished);
 		super.getBuffer().setData(objects);
 	}
 
