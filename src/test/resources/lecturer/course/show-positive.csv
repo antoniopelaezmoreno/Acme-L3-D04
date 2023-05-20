@@ -1,0 +1,5 @@
+recordIndex,code,title,courseAbstract,indicator,retailPrice,link,published
+0,AB001,Titulo para course7,Abstract para course7,HANDS_ON,"EUR 13,000.98",ftp://ftp.mozilla.org/,false
+1,AB193,"75caracteres Titulo para course1asdasdfafasdf&%$·begbl askdjcnh()[asdf""]{75",1,THEORETICAL,"EUR 15,000.98",http://github.com/,true
+2,Z123,Titulo,Abstract para course10,HANDS_ON,"EUR 13,000.98",,false
+3,Z124,Todos teóricos,Abstract para course11,THEORETICAL,"EUR 13,000.98",,false

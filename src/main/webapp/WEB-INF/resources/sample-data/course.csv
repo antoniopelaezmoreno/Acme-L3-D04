@@ -8,3 +8,5 @@ course-06,B002,Titulo para course6afsdvfascdcasdcfas,a,BALANCED,USD 00.00,,false
 course-07,AB001,Titulo para course7,Abstract para course7,HANDS_ON,EUR 13000.98,ftp://ftp.mozilla.org/,false,lecturer-01
 course-08,CF185,1,Abstract para course8,HANDS_ON,EUR 13000.98,http://github.com/,false,lecturer-02
 course-09,V777,Titulo,Abstract para course8,BALANCED,EUR 13000.98,,false,lecturer-06
+course-010,Z123,Titulo,Abstract para course10,HANDS_ON,EUR 13000.98,,false,lecturer-01
+course-011,Z124,Todos teóricos,Abstract para course11,THEORETICAL,EUR 13000.98,,false,lecturer-01
