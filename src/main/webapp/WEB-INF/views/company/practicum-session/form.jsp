@@ -14,6 +14,9 @@
 	
 	<jstl:choose>
 		<jstl:when test="${_command == 'create'}">
+			<jstl:if test="${publishedPracticum == true}">
+				<acme:input-checkbox code="company.practicumSession.form.label.confirmation" path="confirmation"/>
+			</jstl:if>
 			<acme:submit code="company.practicumSession.form.button.create" action="/company/practicum-session/create?masterId=${masterId}"/>
 		</jstl:when>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish')}">

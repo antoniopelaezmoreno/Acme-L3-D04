@@ -47,6 +47,8 @@ public class PracticumSession extends AbstractEntity {
 
 	protected boolean			published;
 
+	protected boolean			addendum;
+
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
