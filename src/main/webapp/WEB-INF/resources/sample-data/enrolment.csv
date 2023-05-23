@@ -1,6 +1,6 @@
 key,code,motivation,goals,work-time,card-holder,card-nibble,finalised,key:student,key:course
-enrolment-01,ABC1234,Esto es una pruebaa con maximo de caracteress paraa en enrolment 1 holaaaaa,Esto es una pruebaa con maximo de caracteress paraa en enrolment 1 holaaaaa 0123456789 ABCDEFGHIJKLM,4.5,Alfredoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo  hvgfngv,2347,true,student-01,course-01
-enrolment-02,BC6437,H,I,6.25,A,null,false,student-01,course-01
-enrolment-03,AB4638,Esto_sigue_siendo_una_pruebaaaaaaa,Holaaaa ABCDEFG $$$ (PATATA) SUPERCALIFRAGILISTICOESPIALIDOSO a-b-c-d-e&3,0,Luis,8765,true,student-02,course-01
+enrolment-01,ABC1234,Esto es una pruebaa con maximo de caracteress paraa en enrolment 1 holaaaaa,Esto es una pruebaa con maximo de caracteress paraa en enrolment 1 holaaaaa 0123456789 ABCDEFGHIJKLM,1008,Alfredoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo  hvgfngv,2347,true,student-01,course-01
+enrolment-02,BC6437,H,I,117790,A,7894,true,student-01,course-01
+enrolment-03,AB4638,Esto_sigue_siendo_una_pruebaaaaaaa,Holaaaa ABCDEFG $$$ (PATATA) SUPERCALIFRAGILISTICOESPIALIDOSO a-b-c-d-e&3,25586,Luis,8765,true,student-02,course-01
 enrolment-04,CDE4321,Esto-sigue-siendo-una-pruebaaaaaaa,Holaaaa ABCDEFG $$ eoeoeoeoeoooeoea a-b-c-d-e_349_,14.21,Mike Wazoski,4567,true,student-02,course-02
 enrolment-05,XYZ7777,Esta_ya_es_la_última_pruebaaaaa,Holaa ABCDEFG == eeoooeoea a-b-c-d-e_cheese,14.21,null,null,false,student-03,course-03
