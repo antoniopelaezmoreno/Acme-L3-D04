@@ -36,36 +36,36 @@ public class LecturerCourseListTest extends TestHarness {
 	public void test300Hacking() {
 
 		super.checkLinkExists("Sign in");
-		super.request("/lecturer/course/list");
+		super.request("/lecturer/course/list-mine");
 		super.checkPanicExists();
 
 		super.checkLinkExists("Sign in");
 		super.signIn("administrator", "administrator");
-		super.request("/lecturer/course/list");
+		super.request("/lecturer/course/list-mine");
 		super.checkPanicExists();
 		super.signOut();
 
 		super.checkLinkExists("Sign in");
 		super.signIn("student1", "student1");
-		super.request("/lecturer/course/list");
+		super.request("/lecturer/course/list-mine");
 		super.checkPanicExists();
 		super.signOut();
 
 		super.checkLinkExists("Sign in");
 		super.signIn("assistant1", "assistant1");
-		super.request("/lecturer/course/list");
+		super.request("/lecturer/course/list-mine");
 		super.checkPanicExists();
 		super.signOut();
 
 		super.checkLinkExists("Sign in");
 		super.signIn("auditor1", "auditor1");
-		super.request("/lecturer/course/list");
+		super.request("/lecturer/course/list-mine");
 		super.checkPanicExists();
 		super.signOut();
 
 		super.checkLinkExists("Sign in");
 		super.signIn("company1", "company1");
-		super.request("/lecturer/course/list");
+		super.request("/lecturer/course/list-mine");
 		super.checkPanicExists();
 		super.signOut();
 

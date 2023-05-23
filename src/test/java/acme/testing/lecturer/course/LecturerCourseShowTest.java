@@ -58,7 +58,7 @@ public class LecturerCourseShowTest extends TestHarness {
 
 		String query;
 
-		courses = this.repository.findManyCoursesByLecturerId(28);
+		courses = this.repository.findManyCoursesByUserName("lecturer1");
 
 		for (final Course c : courses) {
 			query = String.format("id=%d", c.getId());
