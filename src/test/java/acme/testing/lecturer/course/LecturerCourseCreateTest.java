@@ -12,8 +12,6 @@ public class LecturerCourseCreateTest extends TestHarness {
 	@ParameterizedTest
 	@CsvFileSource(resources = "/lecturer/course/create-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
 	public void test100Positive(final int recordIndex, final String code, final String title, final String courseAbstract, final String indicator, final String retailPrice, final String link, final String published) {
-		// HINT: this test authenticates as an employer and then lists his or her
-		// HINT: jobs, creates a new one, and check that it's been created properly.	
 
 		super.signIn("lecturer1", "lecturer1");
 
@@ -55,7 +53,6 @@ public class LecturerCourseCreateTest extends TestHarness {
 	@ParameterizedTest
 	@CsvFileSource(resources = "/lecturer/course/create-negative.csv", encoding = "utf-8", numLinesToSkip = 1)
 	public void test200Negative(final int recordIndex, final String code, final String title, final String courseAbstract, final String retailPrice, final String link) {
-		// HINT: this test attempts to create jobs with incorrect data.
 
 		super.signIn("lecturer1", "lecturer1");
 
@@ -77,8 +74,6 @@ public class LecturerCourseCreateTest extends TestHarness {
 
 	@Test
 	public void test300Hacking() {
-		// HINT: this test tries to create a job using principals with
-		// HINT+ inappropriate roles.
 
 		super.checkLinkExists("Sign in");
 		super.request("/lecturer/course/create");
