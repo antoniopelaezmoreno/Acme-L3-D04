@@ -10,6 +10,7 @@ import acme.entities.course.Course;
 import acme.entities.course.LectureCourse;
 import acme.entities.lecture.Lecture;
 import acme.enums.Indication;
+import acme.enums.IndicationLecture;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
@@ -96,9 +97,9 @@ public class LecturerLectureCreateService extends AbstractService<Lecturer, Lect
 		int numTeoricos = 0;
 		int numPracticos = 0;
 		for (final Lecture lecture : lectures)
-			if (lecture.getIndicator().equals(Indication.THEORETICAL))
+			if (lecture.getIndicator().equals(IndicationLecture.THEORETICAL))
 				numTeoricos++;
-			else if (lecture.getIndicator().equals(Indication.HANDS_ON))
+			else if (lecture.getIndicator().equals(IndicationLecture.HANDS_ON))
 				numPracticos++;
 		if (numTeoricos > numPracticos)
 			course.setIndicator(Indication.THEORETICAL);
@@ -117,7 +118,7 @@ public class LecturerLectureCreateService extends AbstractService<Lecturer, Lect
 		SelectChoices indicators;
 		Tuple tuple;
 
-		indicators = SelectChoices.from(Indication.class, object.getIndicator());
+		indicators = SelectChoices.from(IndicationLecture.class, object.getIndicator());
 
 		tuple = super.unbind(object, "title", "lectureAbstract", "estimatedTime", "body", "indicator", "link", "published");
 		tuple.put("masterId", super.getRequest().getData("masterId", int.class));

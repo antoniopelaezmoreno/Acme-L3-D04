@@ -1,0 +1,11 @@
+recordIndex,code,title,courseAbstract,retailPrice,link
+1,BB998,Titulo test2,Abstract test1,,ftp://ftp.mozilla.org/
+1,BB997,Titulo test3,masde101caracteresqwertyuioqwertyuioqwertyuioqwertyuioqwertyuioqwertyuioqwertyuioqwertyuioqwertyuioqwertyu,"EUR 20,222.98",ftp://ftp.mozilla.org/
+1,BB996,Titulo test4,,"EUR 20,222.98",ftp://ftp.mozilla.org/
+1,BB995,masde75caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwerty,Abstract test1,"EUR 20,222.98",ftp://ftp.mozilla.org/
+1,BB994,,Abstract test1,"EUR 20,222.98",ftp://ftp.mozilla.org/
+1,POIU1234,Titulo test7,Abstract test1,"EUR 20,222.98",ftp://ftp.mozilla.org/
+1,AB001,Titulo test8,Abstract test1,"EUR 20,222.98",ftp://ftp.mozilla.org/
+1,,Titulo test9,Abstract test1,"EUR 20,222.98",ftp://ftp.mozilla.org/
+1,,masde75caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwerty,masde101caracteresqwertyuioqwertyuioqwertyuioqwertyuioqwertyuioqwertyuioqwertyuioqwertyuioqwertyuioqwertyu,,ftp://ftp.mozilla.org/
+1,,,,,

@@ -1,12 +1,15 @@
 
 package acme.features.lecturer.lecture;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.course.Course;
 import acme.entities.lecture.Lecture;
 import acme.enums.Indication;
+import acme.enums.IndicationLecture;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
@@ -81,39 +84,39 @@ public class LecturerLectureUpdateService extends AbstractService<Lecturer, Lect
 	@Override
 	public void perform(final Lecture object) {
 		assert object != null;
-		//
-		//		Course course;
-		//		int masterId;
-		//		Indication indicator;
+
+		Course course;
+		int masterId;
+		final IndicationLecture indicator;
 
 		this.repository.save(object);
 
-		//		masterId = super.getRequest().getData("masterId", int.class);
-		//		course = this.repository.findOneCourseByCourseId(masterId);
-		//		final Collection<Lecture> lectures = this.repository.findManyLecturesByCourseId(masterId);
-		//		lectures.remove(object);
-		//		int numTeoricos = 0;
-		//		int numPracticos = 0;
-		//		for (final Lecture lecture : lectures)
-		//			if (lecture.getIndicator().equals(Indication.THEORETICAL))
-		//				numTeoricos++;
-		//			else if (lecture.getIndicator().equals(Indication.HANDS_ON))
-		//				numPracticos++;
-		//
-		//		indicator = super.getRequest().getData("indicator", Indication.class);
-		//		if (indicator.equals(Indication.THEORETICAL))
-		//			numTeoricos++;
-		//		else if (indicator.equals(Indication.HANDS_ON))
-		//			numPracticos++;
-		//
-		//		if (numTeoricos > numPracticos)
-		//			course.setIndicator(Indication.THEORETICAL);
-		//		else if (numPracticos > numTeoricos)
-		//			course.setIndicator(Indication.HANDS_ON);
-		//		else
-		//			course.setIndicator(Indication.BALANCED);
+		masterId = super.getRequest().getData("id", int.class);
+		course = this.repository.findOneCourseByLectureId(masterId);
+		final Collection<Lecture> lectures = this.repository.findManyLecturesByCourseId(course.getId());
+		lectures.remove(object);
+		int numTeoricos = 0;
+		int numPracticos = 0;
+		for (final Lecture lecture : lectures)
+			if (lecture.getIndicator().equals(IndicationLecture.THEORETICAL))
+				numTeoricos++;
+			else if (lecture.getIndicator().equals(IndicationLecture.HANDS_ON))
+				numPracticos++;
 
-		//		this.repository.save(course);
+		indicator = super.getRequest().getData("indicator", IndicationLecture.class);
+		if (indicator.equals(IndicationLecture.THEORETICAL))
+			numTeoricos++;
+		else if (indicator.equals(IndicationLecture.HANDS_ON))
+			numPracticos++;
+
+		if (numTeoricos > numPracticos)
+			course.setIndicator(Indication.THEORETICAL);
+		else if (numPracticos > numTeoricos)
+			course.setIndicator(Indication.HANDS_ON);
+		else
+			course.setIndicator(Indication.BALANCED);
+
+		this.repository.save(course);
 	}
 
 	@Override
@@ -123,7 +126,7 @@ public class LecturerLectureUpdateService extends AbstractService<Lecturer, Lect
 		SelectChoices indicators;
 		Tuple tuple;
 
-		indicators = SelectChoices.from(Indication.class, object.getIndicator());
+		indicators = SelectChoices.from(IndicationLecture.class, object.getIndicator());
 
 		tuple = super.unbind(object, "title", "lectureAbstract", "estimatedTime", "body", "indicator", "link", "published");
 		tuple.put("indicators", indicators);

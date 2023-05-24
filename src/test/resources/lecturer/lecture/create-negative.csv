@@ -1,0 +1,15 @@
+courseIndex,title,lectureAbstract,estimatedTime,body,indicator,link
+0,,Abstract Test,1,Body Test,THEORETICAL,https://github.com/
+0,76caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwer,Abstract Test,1,Body Test,HANDS_ON,https://github.com/
+0,101caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwer,Abstract Test,1,Body Test,HANDS_ON,
+0,Title Test,,1,Body Test,THEORETICAL,https://github.com/
+0,Title Test,101caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwer,1,Body Test,HANDS_ON,
+0,Title Test,150caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwert,1,Body Test,THEORETICAL,
+0,Title Test,Abstract Test,,Body Test,HANDS_ON,https://github.com/
+0,Title Test,Abstract Test,0,Body Test,THEORETICAL,https://github.com/
+0,Title Test,Abstract Test,0.1,Body Test,THEORETICAL,https://github.com/
+0,Title Test,Abstract Test,1,,HANDS_ON,
+0,Title Test,Abstract Test,1,101caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwer,THEORETICAL,https://github.com/
+0,Title Test,Abstract Test,1,150caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwert,THEORETICAL,https://github.com/
+0,76caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwer,101caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwer,0,101caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwer,THEORETICAL,https://github.com/
+0,,,,,HANDS_ON,
