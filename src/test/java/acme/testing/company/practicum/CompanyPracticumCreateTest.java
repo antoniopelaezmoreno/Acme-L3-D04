@@ -11,13 +11,13 @@ public class CompanyPracticumCreateTest extends TestHarness {
 
 	@ParameterizedTest
 	@CsvFileSource(resources = "/company/practicum/create-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
-	public void test100Positive(final int recordIndex, final String code, final String title, final String practicumAbstract, final String goals, final String course) {
+	public void test100Positive(final int recordIndex, final String code, final String title, final String practicumAbstract, final String goals, final String course, final String estimatedTotalTime, final String published) {
 		// HINT: this test authenticates as an employer and then lists his or her
 		// HINT: jobs, creates a new one, and check that it's been created properly.	
 
 		super.signIn("company1", "company1");
 
-		super.clickOnMenu("Company", "List practicums");
+		super.clickOnMenu("Company", "List Practicums");
 		super.checkListingExists();
 
 		super.clickOnButton("Create");
@@ -28,12 +28,13 @@ public class CompanyPracticumCreateTest extends TestHarness {
 		super.fillInputBoxIn("course", course);
 		super.clickOnSubmit("Create");
 
-		super.clickOnMenu("Company", "List practicums");
+		super.clickOnMenu("Company", "List Practicums");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
 		super.checkColumnHasValue(recordIndex, 0, code);
 		super.checkColumnHasValue(recordIndex, 1, title);
-		super.checkColumnHasValue(recordIndex, 2, practicumAbstract);
+		super.checkColumnHasValue(recordIndex, 2, estimatedTotalTime);
+		super.checkColumnHasValue(recordIndex, 3, published);
 
 		super.clickOnListingRecord(recordIndex);
 		super.checkFormExists();
@@ -43,7 +44,7 @@ public class CompanyPracticumCreateTest extends TestHarness {
 		super.checkInputBoxHasValue("goals", goals);
 		super.checkInputBoxHasValue("course", course);
 
-		super.clickOnButton("Lectures");
+		super.clickOnButton("Sessions");
 		super.checkListingExists();
 		super.checkListingEmpty();
 
@@ -52,12 +53,12 @@ public class CompanyPracticumCreateTest extends TestHarness {
 
 	@ParameterizedTest
 	@CsvFileSource(resources = "/company/practicum/create-negative.csv", encoding = "utf-8", numLinesToSkip = 1)
-	public void test200Negative(final int recordIndex, final String code, final String title, final String practicumAbstract, final String goals, final String published, final String course) {
+	public void test200Negative(final int recordIndex, final String code, final String title, final String practicumAbstract, final String goals, final String course) {
 		// HINT: this test attempts to create jobs with incorrect data.
 
 		super.signIn("company1", "company1");
 
-		super.clickOnMenu("Company", "List practicums");
+		super.clickOnMenu("Company", "List Practicums");
 		super.clickOnButton("Create");
 		super.checkFormExists();
 

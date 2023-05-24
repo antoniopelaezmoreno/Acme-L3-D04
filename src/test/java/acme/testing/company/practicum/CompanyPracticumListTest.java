@@ -11,16 +11,16 @@ public class CompanyPracticumListTest extends TestHarness {
 
 	@ParameterizedTest
 	@CsvFileSource(resources = "/company/practicum/list-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
-	public void test100Positive(final int recordIndex, final String code, final String title, final String courseAbstract, final String published) {
-		super.signIn("lecturer1", "lecturer1");
+	public void test100Positive(final int recordIndex, final String code, final String title, final String practicumAbstract, final String published) {
+		super.signIn("company1", "company1");
 
-		super.clickOnMenu("Lecturer", "List my courses");
+		super.clickOnMenu("Comoany", "List Practicums");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
 
 		super.checkColumnHasValue(recordIndex, 0, code);
 		super.checkColumnHasValue(recordIndex, 1, title);
-		super.checkColumnHasValue(recordIndex, 2, courseAbstract);
+		super.checkColumnHasValue(recordIndex, 2, practicumAbstract);
 		super.checkColumnHasValue(recordIndex, 3, published);
 
 		super.signOut();
@@ -36,36 +36,36 @@ public class CompanyPracticumListTest extends TestHarness {
 	public void test300Hacking() {
 
 		super.checkLinkExists("Sign in");
-		super.request("/lecturer/course/list");
+		super.request("/company/practicum/list");
 		super.checkPanicExists();
 
 		super.checkLinkExists("Sign in");
 		super.signIn("administrator", "administrator");
-		super.request("/lecturer/course/list");
+		super.request("/company/practicum/list");
 		super.checkPanicExists();
 		super.signOut();
 
 		super.checkLinkExists("Sign in");
 		super.signIn("student1", "student1");
-		super.request("/lecturer/course/list");
+		super.request("/company/practicum/list");
 		super.checkPanicExists();
 		super.signOut();
 
 		super.checkLinkExists("Sign in");
 		super.signIn("assistant1", "assistant1");
-		super.request("/lecturer/course/list");
+		super.request("/company/practicum/list");
 		super.checkPanicExists();
 		super.signOut();
 
 		super.checkLinkExists("Sign in");
 		super.signIn("auditor1", "auditor1");
-		super.request("/lecturer/course/list");
+		super.request("/company/practicum/list");
 		super.checkPanicExists();
 		super.signOut();
 
 		super.checkLinkExists("Sign in");
 		super.signIn("company1", "company1");
-		super.request("/lecturer/course/list");
+		super.request("/company/practicum/list");
 		super.checkPanicExists();
 		super.signOut();
 

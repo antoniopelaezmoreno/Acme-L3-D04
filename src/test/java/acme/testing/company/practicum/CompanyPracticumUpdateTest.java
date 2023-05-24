@@ -23,13 +23,13 @@ public class CompanyPracticumUpdateTest extends TestHarness {
 
 	@ParameterizedTest
 	@CsvFileSource(resources = "/company/practicum/update-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
-	public void test100Positive(final int recordIndex, final String code, final String title, final String courseAbstract, final String indicator, final String retailPrice, final String link, final String published) {
+	public void test100Positive(final int recordIndex, final String code, final String title, final String practicumAbstract, final String goals, final String course, final String estimatedTotalTime, final String published) {
 		// HINT: this test authenticates as an employer, lists his or her applications,
 		// HINT+ changes their status and checks that it's been updated.
 
-		super.signIn("lecturer1", "lecturer1");
+		super.signIn("company1", "company1");
 
-		super.clickOnMenu("Lecturer", "List my courses");
+		super.clickOnMenu("Company", "List Practicum");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
 
@@ -37,38 +37,36 @@ public class CompanyPracticumUpdateTest extends TestHarness {
 		super.checkFormExists();
 		super.fillInputBoxIn("code", code);
 		super.fillInputBoxIn("title", title);
-		super.fillInputBoxIn("courseAbstract", courseAbstract);
-		super.fillInputBoxIn("retailPrice", retailPrice);
-		super.fillInputBoxIn("link", link);
+		super.fillInputBoxIn("practicumAbstract", practicumAbstract);
+		super.fillInputBoxIn("goals", goals);
+		super.fillInputBoxIn("course", course);
 		super.clickOnSubmit("Update");
 
-		super.clickOnMenu("Lecturer", "List my courses");
+		super.clickOnMenu("Company", "List Practicum");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
 		super.checkColumnHasValue(recordIndex, 0, code);
 		super.checkColumnHasValue(recordIndex, 1, title);
-		super.checkColumnHasValue(recordIndex, 2, courseAbstract);
+		super.checkColumnHasValue(recordIndex, 2, estimatedTotalTime);
 		super.checkColumnHasValue(recordIndex, 3, published);
 
 		super.clickOnListingRecord(recordIndex);
 		super.checkFormExists();
 		super.checkInputBoxHasValue("code", code);
 		super.checkInputBoxHasValue("title", title);
-		super.checkInputBoxHasValue("courseAbstract", courseAbstract);
-		super.checkInputBoxHasValue("indicator", indicator);
-		super.checkInputBoxHasValue("retailPrice", retailPrice);
-		super.checkInputBoxHasValue("link", link);
-		super.checkInputBoxHasValue("published", published);
+		super.checkInputBoxHasValue("practicumAbstract", practicumAbstract);
+		super.checkInputBoxHasValue("goals", goals);
+		super.checkInputBoxHasValue("course", course);
 
 		super.signOut();
 	}
 
 	@ParameterizedTest
 	@CsvFileSource(resources = "/company/practicum/update-negative.csv", encoding = "utf-8", numLinesToSkip = 1)
-	public void test200Negative(final int recordIndex, final String code, final String title, final String courseAbstract, final String indicator, final String retailPrice, final String link, final String published) {
-		super.signIn("lecturer1", "lecturer1");
+	public void test200Negative(final int recordIndex, final String code, final String title, final String practicumAbstract, final String goals, final String course) {
+		super.signIn("company1", "company1");
 
-		super.clickOnMenu("Lecturer", "List my courses");
+		super.clickOnMenu("Company", "List Practicums");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
 
@@ -78,10 +76,11 @@ public class CompanyPracticumUpdateTest extends TestHarness {
 		super.checkFormExists();
 		super.fillInputBoxIn("code", code);
 		super.fillInputBoxIn("title", title);
-		super.fillInputBoxIn("courseAbstract", courseAbstract);
-		super.fillInputBoxIn("link", link);
-		super.clickOnSubmit("Update");
+		super.fillInputBoxIn("practicumAbstract", practicumAbstract);
+		super.fillInputBoxIn("goals", goals);
+		super.fillInputBoxIn("course", course);
 
+		super.clickOnSubmit("Update");
 		super.checkErrorsExist();
 
 		super.signOut();
@@ -91,40 +90,24 @@ public class CompanyPracticumUpdateTest extends TestHarness {
 	public void test300Hacking() {
 		Collection<Practicum> practicums;
 
-		String query;
+		String id;
 
-		practicums = this.repository.findManyPracticumsByCompanyId(28);
+		practicums = this.repository.findPracticumsByUsername("company1");
 
 		for (final Practicum p : practicums) {
-			query = String.format("id=%d", p.getId());
-			super.request("/lecturer/course/update", query);
+			id = String.format("id=%d", p.getId());
+			super.request("/company/practicum/update", id);
 			super.checkPanicExists();
 
-			super.signIn("lecturer2", "lecturer2");
-			super.request("/lecturer/course/update", query);
+			super.signIn("student1", "student1");
+			super.request("/company/practicum/update", id);
 			super.checkPanicExists();
 			super.signOut();
 
-			super.signIn("company1", "company1");
-			super.request("/lecturer/course/update", query);
+			super.signIn("company2", "company2");
+			super.request("/company/practicum/update", id);
 			super.checkPanicExists();
 			super.signOut();
 		}
-	}
-
-	@Test
-	public void test301Hacking() {
-		Practicum practicum;
-
-		String query;
-
-		practicum = this.repository.findPracticumByCode("AB193");
-
-		query = String.format("id=%d", practicum.getId());
-		super.signIn("lecturer1", "lecturer1");
-		super.request("/lecturer/course/update", query);
-		super.checkPanicExists();
-		super.signOut();
-
 	}
 }

@@ -13,12 +13,8 @@ import acme.testing.TestHarness;
 
 public class CompanyPracticumShowTest extends TestHarness {
 
-	// Internal state ---------------------------------------------------------
-
 	@Autowired
 	protected CompanyPracticumTestRepository repository;
-
-	// Test methods -----------------------------------------------------------
 
 
 	@ParameterizedTest
@@ -29,7 +25,7 @@ public class CompanyPracticumShowTest extends TestHarness {
 
 		super.signIn("company1", "company1");
 
-		super.clickOnMenu("Company", "List Practicums");
+		super.clickOnMenu("Company", "List practicums");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
 		super.clickOnListingRecord(recordIndex);
@@ -57,22 +53,22 @@ public class CompanyPracticumShowTest extends TestHarness {
 
 		Collection<Practicum> practicums;
 
-		String query;
+		String id;
 
-		practicums = this.repository.findManyPracticumsByCompanyId(28);
+		practicums = this.repository.findPracticumsByUsername("company1");
 
 		for (final Practicum p : practicums) {
-			query = String.format("id=%d", p.getId());
-			super.request("/company/practicum/show", query);
+			id = String.format("id=%d", p.getId());
+			super.request("/company/practicum/show", id);
 			super.checkPanicExists();
 
-			super.signIn("lecturer2", "lecturer2");
-			super.request("/company/practicum/show", query);
+			super.signIn("student1", "student1");
+			super.request("/company/practicum/show", id);
 			super.checkPanicExists();
 			super.signOut();
 
-			super.signIn("company1", "company1");
-			super.request("/company/practicum/show", query);
+			super.signIn("company2", "company2");
+			super.request("/company/practicum/show", id);
 			super.checkPanicExists();
 			super.signOut();
 		}
