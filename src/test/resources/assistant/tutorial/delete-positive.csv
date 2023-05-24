@@ -1,0 +1,5 @@
+recordIndex,code,title,course,assistant,tutorialAbstract,goals,estimatedTime,published
+0,A1001,Introducción a Python,75caracteres Titulo para course1asdasdfafasdf&%$·begbl askdjcnh()[asdf"]{75,supervisor1                                            75-characters-test,Principios básicos de la programación en Python para principiantes,"Entender sintaxis, variables y estructuras de control",60,true
+1,DAN4004,Análisis de datos con R,()/=*-+$%&[]{},supervisor1                                            75-characters-test,Introducción al análisis de datos y visualización con R,Manejar paquetes y gráficos en R,75,false
+2,GO7007,Desarrollo móvil con React Native,75caracteres Titulo para course1asdasdfafasdf&%$·begbl askdjcnh()[asdf"]{75,supervisor1                                            75-characters-test,Creación de aplicaciones móviles multiplataforma con React Native,Implementar componentes y navegación,210,true
+3,JTZ1010,Desarrollo web con Ruby on Rails,()/=*-+$%&[]{},supervisor1                                            75-characters-test,Introducción al desarrollo de aplicaciones web con Ruby on Rails,Entender MVC y crear aplicaciones Rails,95,false

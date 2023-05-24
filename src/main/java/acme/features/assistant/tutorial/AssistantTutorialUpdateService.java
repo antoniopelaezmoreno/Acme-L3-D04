@@ -60,7 +60,7 @@ public class AssistantTutorialUpdateService extends AbstractService<Assistant, T
 		id = super.getRequest().getData("id", int.class);
 		tutorial = this.repository.findTutorialById(id);
 		principal = super.getRequest().getPrincipal();
-		myTutorials = this.repository.findTutorialsByAssistantId(principal.getActiveRoleId());
+		myTutorials = this.repository.findManyTutorialsByAssistantId(principal.getActiveRoleId());
 		status = tutorial != null && !tutorial.isPublished() && principal.hasRole(Assistant.class) && myTutorials.contains(tutorial);
 
 		super.getResponse().setAuthorised(status);
@@ -87,7 +87,7 @@ public class AssistantTutorialUpdateService extends AbstractService<Assistant, T
 		courseId = super.getRequest().getData("course", int.class);
 		course = this.repository.findCourseById(courseId);
 
-		super.bind(object, AssistantTutorialDeleteService.ATTRIBUTES);
+		super.bind(object, AssistantTutorialUpdateService.ATTRIBUTES);
 		object.setCourse(course);
 	}
 
@@ -131,13 +131,12 @@ public class AssistantTutorialUpdateService extends AbstractService<Assistant, T
 		Principal principal;
 		Collection<Tutorial> myTutorials;
 
-		courses = this.repository.findAccessibleCourses();
+		courses = this.repository.findManyAccessibleCourses();
 		choices = SelectChoices.from(courses, "title", object.getCourse());
 
 		principal = super.getRequest().getPrincipal();
-		myTutorials = this.repository.findTutorialsByAssistantId(principal.getActiveRoleId());
-		tuple = super.unbind(object, AssistantTutorialDeleteService.ATTRIBUTES);
-		//tuple.put("course", choices.getSelected().getKey());
+		myTutorials = this.repository.findManyTutorialsByAssistantId(principal.getActiveRoleId());
+		tuple = super.unbind(object, AssistantTutorialUpdateService.ATTRIBUTES);
 		tuple.put("courses", choices);
 		tuple.put("assistant", object.getAssistant().getSupervisor());
 		tuple.put("showSessions", object.isPublished() && principal.hasRole(Assistant.class) && myTutorials.contains(object));

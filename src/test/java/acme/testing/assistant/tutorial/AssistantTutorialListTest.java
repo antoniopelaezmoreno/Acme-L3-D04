@@ -18,10 +18,10 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 import acme.testing.TestHarness;
 
-public class AssistantTutorialListMineTest extends TestHarness {
+public class AssistantTutorialListTest extends TestHarness {
 
 	@ParameterizedTest
-	@CsvFileSource(resources = "/assistant/tutorial/list-mine-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
+	@CsvFileSource(resources = "/assistant/tutorial/list-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
 	public void test100Positive(final int recordIndex, final String code, final String title, final String estimatedTime, final String published) {
 		// HINT: this test authenticates as an assistant, lists his or her tutorials only,
 		// HINT+ and then checks that the listing has the expected data.
@@ -48,16 +48,31 @@ public class AssistantTutorialListMineTest extends TestHarness {
 	@Test
 	public void test300Hacking() {
 		super.checkLinkExists("Sign in");
-		super.request("/assistant/tutorial/list-mine");
+		super.request("/assistant/tutorial/list");
 		super.checkPanicExists();
 
 		super.signIn("administrator", "administrator");
-		super.request("/assistant/tutorial/list-mine");
+		super.request("/assistant/tutorial/list");
+		super.checkPanicExists();
+		super.signOut();
+
+		super.signIn("company1", "company1");
+		super.request("/assistant/tutorial/list");
+		super.checkPanicExists();
+		super.signOut();
+
+		super.signIn("lecturer1", "lecturer1");
+		super.request("/assistant/tutorial/list");
 		super.checkPanicExists();
 		super.signOut();
 
 		super.signIn("student1", "student1");
-		super.request("/assistant/tutorial/list-mine");
+		super.request("/assistant/tutorial/list");
+		super.checkPanicExists();
+		super.signOut();
+
+		super.signIn("auditor1", "auditor1");
+		super.request("/assistant/tutorial/list");
 		super.checkPanicExists();
 		super.signOut();
 	}

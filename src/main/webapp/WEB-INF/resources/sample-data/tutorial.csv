@@ -1,5 +1,5 @@
 key,code,title,tutorialAbstract,goals,estimatedTime,key:course,key:assistant,published
-tutorial-01,A1001,Introducción a Python,Principios básicos de la programación en Python para principiantes,Entender sintaxis"," variables y estructuras de control,60,course-01,assistant-01,true
+tutorial-01,A1001,Introducción a Python,Principios básicos de la programación en Python para principiantes,"Entender sintaxis, variables y estructuras de control",60,course-01,assistant-01,true
 tutorial-02,BY2002,Desarrollo web con Django,Aprende a crear aplicaciones web con Django y Python,Crear proyectos y apps con Django,90,course-01,assistant-02,false
 tutorial-03,COI3003,Inteligencia Artificial,Conceptos fundamentales y aplicaciones de la Inteligencia Artificial,Comprender algoritmos y técnicas de IA,120,course-02,assistant-03,true
 tutorial-04,DAN4004,Análisis de datos con R,Introducción al análisis de datos y visualización con R,Manejar paquetes y gráficos en R,75,course-02,assistant-01,false

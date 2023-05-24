@@ -30,6 +30,7 @@ master.menu.anonymous.peep.list = Listar Peeps
 # master.menu.authenticated ###################################################
 
 master.menu.authenticated = Autenticado
+master.menu.authenticated.tutorial.list = Listar Tutoriales
 master.menu.authenticated.note.list = Listar Notas
 master.menu.authenticated.offer.list = Ver ofertas
 master.menu.authenticated.bulletin.list = Ver boletines
@@ -40,9 +41,7 @@ master.menu.anonymous.peep.list = Listar Peeps
 # master.menu.assistant ###################################################
 
 master.menu.assistant = Asistente
-master.menu.assistant.tutorial.list-all = Listar Tutoriales
-master.menu.assistant.tutorial.list-mine = Listar mis Tutoriales
-master.menu.assistant.session.list-all = Listar Sesiones
+master.menu.assistant.tutorial.list = Listar mis Tutoriales
 master.menu.assistant.dashboard = Panel
 
 # master.menu.administrator ###################################################

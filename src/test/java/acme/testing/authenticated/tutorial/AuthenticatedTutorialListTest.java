@@ -10,7 +10,7 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.testing.assistant.tutorial;
+package acme.testing.authenticated.tutorial;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,22 +18,44 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 import acme.testing.TestHarness;
 
-public class AssistantTutorialListAllTest extends TestHarness {
+public class AuthenticatedTutorialListTest extends TestHarness {
 
 	@ParameterizedTest
-	@CsvFileSource(resources = "/assistant/tutorial/list-all-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
+	@CsvFileSource(resources = "/authenticated/tutorial/list-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
 	public void test100Positive(final int recordIndex, final String code, final String title, final String estimatedTime) {
 
-		super.signIn("assistant1", "assistant1");
+		super.signIn("administrator", "administrator");
+		super.clickOnMenu("Authenticated", "List Tutorials");
+		super.checkListingExists();
+		super.signOut();
 
+		super.signIn("assistant1", "assistant1");
+		super.clickOnMenu("Authenticated", "List Tutorials");
+		super.checkListingExists();
+		super.signOut();
+
+		super.signIn("company1", "company1");
+		super.clickOnMenu("Authenticated", "List Tutorials");
+		super.checkListingExists();
+		super.signOut();
+
+		super.signIn("lecturer1", "lecturer1");
+		super.clickOnMenu("Authenticated", "List Tutorials");
+		super.checkListingExists();
+		super.signOut();
+
+		super.signIn("student1", "student1");
+		super.clickOnMenu("Authenticated", "List Tutorials");
+		super.checkListingExists();
+		super.signOut();
+
+		super.signIn("auditor1", "auditor1");
 		super.clickOnMenu("Authenticated", "List Tutorials");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
-
 		super.checkColumnHasValue(recordIndex, 0, code);
 		super.checkColumnHasValue(recordIndex, 1, title);
 		super.checkColumnHasValue(recordIndex, 2, estimatedTime);
-
 		super.signOut();
 	}
 
@@ -49,7 +71,7 @@ public class AssistantTutorialListAllTest extends TestHarness {
 		// HINT+ inappropriate roles.
 
 		super.checkLinkExists("Sign in");
-		super.request("/assistant/tutorial/list-all");
+		super.request("/authenticated/tutorial/list");
 		super.checkPanicExists();
 	}
 

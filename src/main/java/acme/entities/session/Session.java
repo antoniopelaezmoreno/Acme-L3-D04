@@ -47,6 +47,7 @@ public class Session extends AbstractEntity {
 	protected Date				periodEnd;
 
 	@URL
+	@Length(max = 255)
 	protected String			link;
 
 	@NotNull
