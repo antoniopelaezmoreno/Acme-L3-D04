@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import acme.entities.course.Course;
 import acme.entities.lecture.Lecture;
 import acme.enums.Indication;
+import acme.enums.IndicationLecture;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
@@ -61,9 +62,9 @@ public class LecturerCourseShowService extends AbstractService<Lecturer, Course>
 		int numTeoricos = 0;
 		int numPracticos = 0;
 		for (final Lecture lecture : lectures)
-			if (lecture.getIndicator().equals(Indication.THEORETICAL))
+			if (lecture.getIndicator().equals(IndicationLecture.THEORETICAL))
 				numTeoricos++;
-			else if (lecture.getIndicator().equals(Indication.HANDS_ON))
+			else if (lecture.getIndicator().equals(IndicationLecture.HANDS_ON))
 				numPracticos++;
 		if (numTeoricos > numPracticos)
 			object.setIndicator(Indication.THEORETICAL);

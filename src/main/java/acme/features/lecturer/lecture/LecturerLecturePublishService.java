@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.lecture.Lecture;
-import acme.enums.Indication;
+import acme.enums.IndicationLecture;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -98,7 +98,7 @@ public class LecturerLecturePublishService extends AbstractService<Lecturer, Lec
 		SelectChoices choices;
 		Tuple tuple;
 
-		choices = SelectChoices.from(Indication.class, object.getIndicator());
+		choices = SelectChoices.from(IndicationLecture.class, object.getIndicator());
 
 		tuple = super.unbind(object, "title", "lectureAbstract", "estimatedTime", "body", "indicator", "link", "published");
 		tuple.put("indications", choices);

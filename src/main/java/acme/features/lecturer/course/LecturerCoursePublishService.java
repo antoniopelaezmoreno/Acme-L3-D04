@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import acme.entities.course.Course;
 import acme.entities.lecture.Lecture;
 import acme.enums.Indication;
+import acme.enums.IndicationLecture;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -89,7 +90,7 @@ public class LecturerCoursePublishService extends AbstractService<Lecturer, Cour
 			id = super.getRequest().getData("id", int.class);
 
 			final Collection<Lecture> lectures = this.repository.findManyLecturesByCourseId(id);
-			final boolean onlyTheoretical = lectures.stream().allMatch(x -> x.getIndicator().equals(Indication.THEORETICAL));
+			final boolean onlyTheoretical = lectures.stream().allMatch(x -> x.getIndicator().equals(IndicationLecture.THEORETICAL));
 			super.state(!onlyTheoretical, "indicator", "lecturer.course.form.error.onlyTheoretical");
 		}
 		final Collection<Lecture> lectures = this.repository.findManyLecturesByCourseId(object.getId());
@@ -110,9 +111,9 @@ public class LecturerCoursePublishService extends AbstractService<Lecturer, Cour
 		int numTeoricos = 0;
 		int numPracticos = 0;
 		for (final Lecture lecture : lectures)
-			if (lecture.getIndicator().equals(Indication.THEORETICAL))
+			if (lecture.getIndicator().equals(IndicationLecture.THEORETICAL))
 				numTeoricos++;
-			else if (lecture.getIndicator().equals(Indication.HANDS_ON))
+			else if (lecture.getIndicator().equals(IndicationLecture.HANDS_ON))
 				numPracticos++;
 		if (numTeoricos > numPracticos)
 			object.setIndicator(Indication.THEORETICAL);

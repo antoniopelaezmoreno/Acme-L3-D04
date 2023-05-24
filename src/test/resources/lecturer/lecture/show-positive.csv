@@ -1,0 +1,4 @@
+courseIndex,recordIndex,title,lectureAbstract,estimatedTime,body,indicator,link,published
+1,0,75caracteres titulo Lecture 1 asdkñlfjchandhufaslndkfnchjacla()acsdcsdfax75,Abstract para Lecture1,1,Body para Lecture1,THEORETICAL,ftp://ftp.mozilla.org/,true
+1,1,Lecture15,Abstract para Lecture15,2,Body Lecture 15,HANDS_ON,https://github.com/,true
+1,2,Lecture5,Abstract para Lecture5,3,()/=*-+$%&[]{},HANDS_ON,https://github.com/,true
