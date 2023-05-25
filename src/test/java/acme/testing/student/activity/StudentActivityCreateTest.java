@@ -27,6 +27,7 @@ public class StudentActivityCreateTest extends TestHarness {
 		super.clickOnButton("Register activity");
 		super.fillInputBoxIn("title", title);
 		super.fillInputBoxIn("activityAbstract", activityAbstract);
+		super.fillInputBoxIn("indicator", indicator);
 		super.fillInputBoxIn("periodStart", periodStart);
 		super.fillInputBoxIn("periodEnd", periodEnd);
 		super.fillInputBoxIn("link", link);
@@ -43,10 +44,11 @@ public class StudentActivityCreateTest extends TestHarness {
 		super.clickOnListingRecord(recordIndex);
 		super.checkInputBoxHasValue("title", title);
 		super.checkInputBoxHasValue("activityAbstract", activityAbstract);
+		super.checkInputBoxHasValue("indicator_proxy", indicator);
 		super.checkInputBoxHasValue("periodStart", periodStart);
 		super.checkInputBoxHasValue("periodEnd", periodEnd);
 		super.checkInputBoxHasValue("link", link);
-		super.checkInputBoxHasValue("enrolment", enrolment);
+		super.checkInputBoxHasValue("enrolment_proxy", enrolment);
 
 		super.signOut();
 	}
@@ -66,6 +68,7 @@ public class StudentActivityCreateTest extends TestHarness {
 		super.clickOnButton("Register activity");
 		super.fillInputBoxIn("title", title);
 		super.fillInputBoxIn("activityAbstract", activityAbstract);
+		super.fillInputBoxIn("indicator", indicator);
 		super.fillInputBoxIn("periodStart", periodStart);
 		super.fillInputBoxIn("periodEnd", periodEnd);
 		super.fillInputBoxIn("link", link);

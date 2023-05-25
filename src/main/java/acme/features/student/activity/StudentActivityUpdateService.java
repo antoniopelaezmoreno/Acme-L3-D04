@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.activity.Activity;
+import acme.entities.activity.ActivityType;
 import acme.entities.enrolment.Enrolment;
-import acme.enums.Indication;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.helpers.MomentHelper;
@@ -74,12 +74,8 @@ public class StudentActivityUpdateService extends AbstractService<Student, Activ
 		Integer enrolmentId;
 		Enrolment enrolment;
 
-		enrolmentId = super.getRequest().getData("enrolment", Integer.class);
-
-		if (enrolmentId != null)
-			enrolment = this.repository.findOneEnrolmentById(enrolmentId);
-		else
-			enrolment = null;
+		enrolmentId = super.getRequest().getData("enrolment_proxy", Integer.class);
+		enrolment = this.repository.findOneEnrolmentById(enrolmentId);
 
 		super.bind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
 		object.setEnrolment(enrolment);
@@ -152,7 +148,7 @@ public class StudentActivityUpdateService extends AbstractService<Student, Activ
 
 		enrolments = this.repository.findFinalisedEnrolmentsByStudentId(studentId);
 		choices = SelectChoices.from(enrolments, "code", object.getEnrolment());
-		indicators = SelectChoices.from(Indication.class, object.getIndicator());
+		indicators = SelectChoices.from(ActivityType.class, object.getIndicator());
 
 		tuple = super.unbind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
 		tuple.put("enrolment", choices.getSelected().getKey());

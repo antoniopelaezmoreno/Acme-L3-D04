@@ -15,7 +15,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.entities.enrolment.Enrolment;
-import acme.enums.Indication;
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +34,7 @@ public class Activity extends AbstractEntity {
 	@Length(max = 100)
 	protected String			activityAbstract;
 
-	protected Indication		indicator;
+	protected ActivityType		indicator;
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
