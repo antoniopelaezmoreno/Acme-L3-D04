@@ -39,16 +39,49 @@ public class AuditorAuditingRecordUpdateService extends AbstractService<Auditor,
 
 	@Override
 	public void authorise() {
+
+		/*
+		 * boolean status;
+		 * int masterId;
+		 * Audit audit;
+		 * Auditor auditor;
+		 * 
+		 * masterId = super.getRequest().getData("id", int.class);
+		 * audit = this.repository.findOneAuditById(masterId);
+		 * auditor = audit == null ? null : audit.getAuditor();
+		 * status = super.getRequest().getPrincipal().hasRole(auditor);
+		 * 
+		 * super.getResponse().setAuthorised(status && !audit.isPublished());
+		 * 
+		 * boolean status;
+		 * int AuditingRecordId;
+		 * Audit Audit;
+		 * 
+		 * AuditingRecordId = super.getRequest().getData("id", int.class);
+		 * Audit = this.repository.findOneAuditByAuditingRecordId(AuditingRecordId);
+		 * status = Audit != null && super.getRequest().getPrincipal().hasRole(Audit.getAuditor());
+		 * 
+		 * super.getResponse().setAuthorised(status);
+		 */
+
 		boolean status;
+		int auRecId;
+		final Audit audit;
 
-		final AuditingRecords auditingRecord = this.repository.findOneAuditingRecord(super.getRequest().getData("id", int.class));
-		status = auditingRecord != null;
+		auRecId = super.getRequest().getData("id", int.class);
+		audit = this.repository.findOneAuditByAuditingRecord(auRecId);
+		status = audit != null && super.getRequest().getPrincipal().hasRole(audit.getAuditor());
 
-		final Audit audit = auditingRecord.getAudit();
-		if (audit != null)
-			status = audit.isPublished();
+		super.getResponse().setAuthorised(status);
 
-		super.getResponse().setAuthorised(status && !auditingRecord.isPublished());
+		//		final AuditingRecords auditingRecord = this.repository.findOneAuditingRecord(super.getRequest().getData("id", int.class));
+		//		status = auditingRecord != null;
+		//
+		//		final Audit audit = auditingRecord.getAudit();
+		//		if (audit != null)
+		//			status = audit.isPublished();
+		//
+		//		super.getResponse().setAuthorised(status && !auditingRecord.isPublished());
 	}
 
 	@Override

@@ -5,11 +5,12 @@
 
 <acme:form>
 
-	<acme:input-checkbox code="auditor.audit.form.label.published" path="published"/>
 	<acme:input-textbox code="auditor.audit.form.label.code" path="code"/>	
 	<acme:input-textarea code="auditor.audit.form.label.conclusion" path="conclusion"/>
 	<acme:input-textarea code="auditor.audit.form.label.strongPoints" path="strongPoints"/>
 	<acme:input-textarea code="auditor.audit.form.label.weakPoints" path="weakPoints"/>	
+	<acme:input-checkbox code="auditor.audit.form.label.published" path="published"/>
+	<acme:input-select code="auditor.audit.form.label.course" path="course" choices="${courses}"/>
 	
 	<jstl:if test="${_command == 'create'}">
 		<acme:input-select code="auditor.audit.form.label.course" path="course" choices="${courses}"/>
@@ -34,7 +35,6 @@
 	</jstl:choose>
 	
 	<jstl:if test="${_command == 'show'}">
-		<acme:input-select code="auditor.audit.form.label.course" path="course" choices="${courses}"/>
 		<acme:button code="auditor.audit.auditingRecords" action="/auditor/auditing-records/list?masterId=${id}"/>
 		<jstl:if test="${published == true}">
 			<acme:button code="auditor.auditing-record.list.button.create" action="/auditor/auditing-records/create?masterId=${id}"/>
