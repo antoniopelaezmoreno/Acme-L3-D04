@@ -1,0 +1,4 @@
+recordIndex,title,activityAbstract,indicator,periodStart,periodEnd,link,enrolment
+3,new title of activity 1,new abstract of activity 1,,2023/01/01 10:00,2023/01/01 11:00,http://www.google.es,ABC1234
+4,new title of activity 2,new abstract of activity 2,,2023/01/01 12:00,2023/01/01 13:00,https://www.youtube.com/,ABC1234
+5,new title of activity 3, new abstract of activity 3,,2023/01/01 12:00,2023/01/01 13:00,http://www.google.es,ABC1234

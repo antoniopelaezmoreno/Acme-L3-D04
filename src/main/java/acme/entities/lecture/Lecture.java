@@ -8,7 +8,7 @@ import javax.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
-import acme.enums.Indication;
+import acme.enums.IndicationLecture;
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +38,7 @@ public class Lecture extends AbstractEntity {
 	@Length(max = 100)
 	protected String			body;
 
-	protected Indication		indicator;
+	protected IndicationLecture	indicator;
 
 	@URL
 	protected String			link;

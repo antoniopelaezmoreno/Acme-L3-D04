@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import acme.entities.course.Course;
 import acme.entities.course.LectureCourse;
 import acme.entities.lecture.Lecture;
-import acme.enums.Indication;
+import acme.enums.IndicationLecture;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
@@ -93,7 +93,7 @@ public class LecturerLectureDeleteService extends AbstractService<Lecturer, Lect
 		SelectChoices indicators;
 		Tuple tuple;
 
-		indicators = SelectChoices.from(Indication.class, object.getIndicator());
+		indicators = SelectChoices.from(IndicationLecture.class, object.getIndicator());
 
 		tuple = super.unbind(object, "title", "lectureAbstract", "estimatedTime", "body", "indicator", "link", "published");
 		tuple.put("indicators", indicators);

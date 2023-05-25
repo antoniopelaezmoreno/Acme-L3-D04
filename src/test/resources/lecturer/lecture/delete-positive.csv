@@ -1,0 +1,4 @@
+courseIndex,recordIndex,title,lectureAbstract,estimatedTime,body,indicator,link,published
+0,0,Lecture11,Abstract para Lecture11,5,1,HANDS_ON,https://github.com/,false
+0,0,Title Lecture 16,Abstract para Lecture16,1000,Body Lecture 16,HANDS_ON,https://github.com/,false
+0,0,Title Lecture 17,Abstract para Lecture17,80,Body Lecture 17,THEORETICAL,,false

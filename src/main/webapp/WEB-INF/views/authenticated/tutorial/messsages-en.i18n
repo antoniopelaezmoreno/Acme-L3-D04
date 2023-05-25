@@ -1,0 +1,24 @@
+authenticated.tutorial.list.label.code = Code
+authenticated.tutorial.list.label.title = Title
+authenticated.tutorial.list.label.estimatedTime = Estimated Time
+authenticated.tutorial.list.label.published = Published
+authenticated.tutorial.list.button.create = Create
+
+authenticated.tutorial.form.label.tutorialAbstract = Abstract:
+authenticated.tutorial.form.label.goals = Goals:
+authenticated.tutorial.form.label.assistant = Assistant:
+authenticated.tutorial.form.label.course = Course:
+authenticated.tutorial.form.label.code = Code:
+authenticated.tutorial.form.label.title = Title:
+authenticated.tutorial.form.label.estimatedTime = Estimated Time:
+
+authenticated.tutorial.form.label.confirmation = Confirmation
+authenticated.tutorial.form.button.create = Create
+authenticated.tutorial.form.button.tutorial = Tutorial List
+authenticated.tutorial.form.button.update = Update
+authenticated.tutorial.form.button.delete = Delete
+authenticated.tutorial.form.button.publish = Publish
+authenticated.tutorial.form.button.session = Sessions
+
+authenticated.tutorial.form.error.uniqueCode = The code must be unique. Please enter a different code
+authenticated.tutorial.form.error.availableCourse = The selected course is not available. Please choose a valid course

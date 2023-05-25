@@ -4,6 +4,7 @@ company.practicumSession.list.label.periodEnd = End
 company.practicumSession.list.label.published = Published
 
 company.practicumSession.list.button.create = Create
+company.practicumSession.list.button.createAddendum = Create addendum
 
 company.practicumSession.form.label.title = Title
 company.practicumSession.form.label.sessionAbstract = Abstract
@@ -12,12 +13,16 @@ company.practicumSession.form.label.periodEnd = Period End
 company.practicumSession.form.label.link = Link
 company.practicumSession.form.label.practicum = Practicum
 company.practicumSession.form.label.published = Published
+company.practicumSession.form.label.confirmation = Confirmation
 
 company.practicumSession.form.button.create = Create
+company.practicumSession.form.button.createAddendum = Create addendum
 company.practicumSession.form.button.session = Session
 company.practicumSession.form.button.update = Update
 company.practicumSession.form.button.delete = Delete
 company.practicumSession.form.button.publish = Publish
 
+company.practicumSession.form.error.confirmation = Confirmation needed
+company.practicumSession.form.error.periodStartNull = The start date can not be null
 company.practicumSession.form.error.periodStart = The start date must be at least one week ahead
 company.practicumSession.form.error.periodEnd = The end date must be at least one week after the start date

@@ -1,0 +1,4 @@
+recordIndex,code,title,courseAbstract,indicator,retailPrice,link,published
+1,AB002,Titulo test1,Abstract test1,BALANCED,"EUR 20,222.98",ftp://ftp.mozilla.org/,false
+3,BB002,Titulo test2,Abstract test2,BALANCED,"EUR 20,222.98",ftp://ftp.mozilla.org/,false
+4,CC003,Titulo test3,Abstract test3,BALANCED,"EUR 3,003.98",ftp://ftp.mozilla.org/,false

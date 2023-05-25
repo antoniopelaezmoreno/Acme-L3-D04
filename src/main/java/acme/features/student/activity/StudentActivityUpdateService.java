@@ -90,19 +90,16 @@ public class StudentActivityUpdateService extends AbstractService<Student, Activ
 		Double duration;
 		Double workTime;
 		Enrolment enrolment;
-
 		activity = this.repository.findOneActivityById(object.getId());
+		//enrolment = this.repository.findOneEnrolmentById(object.getEnrolment().getId());
 
-		oldDuration = (double) MomentHelper.computeDuration(activity.getPeriodStart(), object.getPeriodEnd()).toHours();
+		oldDuration = (double) MomentHelper.computeDuration(activity.getPeriodStart(), activity.getPeriodEnd()).toHours();
 		newDuration = (double) MomentHelper.computeDuration(object.getPeriodStart(), object.getPeriodEnd()).toHours();
 		enrolment = object.getEnrolment();
 		workTime = enrolment.getWorkTime();
 		duration = newDuration - oldDuration;
 
-		if (workTime != null)
-			enrolment.setWorkTime(workTime + duration);
-		else
-			enrolment.setWorkTime(newDuration);
+		enrolment.setWorkTime(workTime + duration);
 
 		this.repository.save(object);
 		this.repository.save(enrolment);

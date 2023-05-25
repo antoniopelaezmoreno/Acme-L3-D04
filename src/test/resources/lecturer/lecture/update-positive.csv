@@ -1,0 +1,4 @@
+courseIndex,recordIndex,title,lectureAbstract,estimatedTime,body,indicator,link,published
+0,0,0Title Test, Abstract Test, 1, 75caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwe, THEORETICAL,,false
+0,1,1-75caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyq, Abstract Test 2, 1000, Body Test, HANDS_ON,http://github.com/,false
+0,2,2Title Test varios caracteres pero sin llegar a 75, 100caracteresqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwertyqwe, 1000, Body Test, HANDS_ON,,false

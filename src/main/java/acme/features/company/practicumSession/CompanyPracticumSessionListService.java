@@ -2,6 +2,7 @@
 package acme.features.company.practicumSession;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,13 +64,21 @@ public class CompanyPracticumSessionListService extends AbstractService<Company,
 	@Override
 	public void unbind(final PracticumSession object) {
 		assert object != null;
+		Collection<PracticumSession> objects;
+		final Practicum practicum;
+		final boolean addendumAvailable;
 		int masterId;
 		masterId = super.getRequest().getData("masterId", int.class);
+		objects = this.repository.findAllSessionByPracticumId(masterId);
+		practicum = this.repository.findPracticumById(masterId);
+		addendumAvailable = objects.stream().filter(PracticumSession::isAddendum).collect(Collectors.toList()).isEmpty();
 
 		Tuple tuple;
 
 		tuple = super.unbind(object, "title", "periodStart", "periodEnd", "published");
 		super.getResponse().setGlobal("masterId", masterId);
+		super.getResponse().setGlobal("addendumAvailable", addendumAvailable);
+		super.getResponse().setGlobal("publishedPracticum", practicum.isPublished());
 		super.getResponse().setData(tuple);
 	}
 }
