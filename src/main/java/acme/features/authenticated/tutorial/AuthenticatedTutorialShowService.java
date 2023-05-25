@@ -1,5 +1,5 @@
 
-package acme.features.assistant.tutorial;
+package acme.features.authenticated.tutorial;
 
 import java.util.Collection;
 
@@ -13,19 +13,18 @@ import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
-import acme.roles.Assistant;
 
 @Service
-public class AssistantTutorialShowService extends AbstractService<Assistant, Tutorial> {
+public class AuthenticatedTutorialShowService extends AbstractService<Authenticated, Tutorial> {
 
-	public static final String[]			ATTRIBUTES	= {
+	public static final String[]				ATTRIBUTES	= {
 		"title", "code", "tutorialAbstract", "goals", "estimatedTime", "published"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AssistantTutorialRepository	repository;
+	protected AuthenticatedTutorialRepository	repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -44,18 +43,12 @@ public class AssistantTutorialShowService extends AbstractService<Assistant, Tut
 		final boolean status;
 		int id;
 		Tutorial tutorial;
-		Collection<Tutorial> myTutorials;
 		Principal principal;
-		boolean restriction1;
-		boolean restriction2;
 
 		id = super.getRequest().getData("id", int.class);
 		tutorial = this.repository.findTutorialById(id);
 		principal = super.getRequest().getPrincipal();
-		myTutorials = this.repository.findManyTutorialsByAssistantId(principal.getActiveRoleId());
-		restriction1 = tutorial != null && !tutorial.isPublished() && principal.hasRole(Assistant.class) && myTutorials.contains(tutorial);
-		restriction2 = tutorial != null && tutorial.isPublished() && principal.hasRole(Authenticated.class);
-		status = restriction1 || restriction2;
+		status = tutorial != null && tutorial.isPublished() && principal.hasRole(Authenticated.class);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -77,18 +70,13 @@ public class AssistantTutorialShowService extends AbstractService<Assistant, Tut
 		Tuple tuple;
 		Collection<Course> courses;
 		SelectChoices choices;
-		Principal principal;
-		Collection<Tutorial> myTutorials;
 
 		courses = this.repository.findManyAccessibleCourses();
 		choices = SelectChoices.from(courses, "title", object.getCourse());
 
-		principal = super.getRequest().getPrincipal();
-		myTutorials = this.repository.findManyTutorialsByAssistantId(principal.getActiveRoleId());
-		tuple = super.unbind(object, AssistantTutorialShowService.ATTRIBUTES);
+		tuple = super.unbind(object, AuthenticatedTutorialShowService.ATTRIBUTES);
 		tuple.put("courses", choices);
 		tuple.put("assistant", object.getAssistant().getSupervisor());
-		tuple.put("showSessions", object.isPublished() && principal.hasRole(Assistant.class) && myTutorials.contains(object));
 		tuple.put("showAssistant", object.isPublished());
 
 		super.getResponse().setData(tuple);

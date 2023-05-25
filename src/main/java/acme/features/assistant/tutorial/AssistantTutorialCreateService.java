@@ -103,7 +103,7 @@ public class AssistantTutorialCreateService extends AbstractService<Assistant, T
 		Collection<Course> courses;
 		SelectChoices choices;
 
-		courses = this.repository.findAccessibleCourses();
+		courses = this.repository.findManyAccessibleCourses();
 		choices = SelectChoices.from(courses, "title", object.getCourse());
 
 		tuple = super.unbind(object, AssistantTutorialCreateService.ATTRIBUTES);
