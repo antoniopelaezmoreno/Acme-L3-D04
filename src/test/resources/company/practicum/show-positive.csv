@@ -1,0 +1,4 @@
+record-index,code,title,practicum-abstract,goals,estimated-total-time,published,company,course
+0,ABC123,This is the title of practicum 1 with 75 characters                      75,This is an example of the practicum abstract number 1,G 1,397.67,true,Company name with 75 characters                                          75,"75caracteres Titulo para course1asdasdfafasdf&%$·begbl askdjcnh()[asdf""]{75"
+2,E042,This is the title of practicum 4 but have more characters,A,Goals of practicum 4 with more characters,601.83,false,Company name with 75 characters                                          75,()/=*-+$%&[]{}
+1,CR007,This is the title of practicum 5,This is an example of the practicum abstract number 5,Goals of practicum 5 with 100 characters                                                         100,0.00,false,Company name with 75 characters                                          75,a

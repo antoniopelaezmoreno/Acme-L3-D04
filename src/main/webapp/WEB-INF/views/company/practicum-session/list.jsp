@@ -9,6 +9,5 @@
 	<acme:list-column code="company.practicumSession.list.label.periodEnd" path="periodEnd" width="25%"/>
 	<acme:list-column code="company.practicumSession.list.label.published" path="published" width="20%"/>
 </acme:list>
-<jstl:if test="${masterPublished == false}">
-<acme:button code="company.practicumSession.list.button.create" action="/company/practicum-session/create?masterId=${masterId}"/>
-</jstl:if>
+<acme:button test="${!publishedPracticum}" code="company.practicumSession.list.button.create" action="/company/practicum-session/create?masterId=${masterId}"/>
+<acme:button test="${publishedPracticum && addendumAvailable}" code="company.practicumSession.list.button.createAddendum" action="/company/practicum-session/create?masterId=${masterId}"/>

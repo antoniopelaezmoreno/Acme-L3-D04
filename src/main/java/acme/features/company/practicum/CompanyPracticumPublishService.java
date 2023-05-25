@@ -86,7 +86,8 @@ public class CompanyPracticumPublishService extends AbstractService<Company, Pra
 
 		}
 
-		super.state(sessions.stream().map(PracticumSession::isPublished).allMatch(x -> x), "published", "company.practicum.form.error.allPublished");
+		super.state(!sessions.isEmpty(), "*", "company.practicum.form.error.emptyPracticum");
+		super.state(sessions.stream().map(PracticumSession::isPublished).allMatch(x -> x), "*", "company.practicum.form.error.allPublished");
 	}
 
 	@Override
