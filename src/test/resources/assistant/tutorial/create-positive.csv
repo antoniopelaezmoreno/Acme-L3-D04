@@ -1,0 +1,4 @@
+recordIndex,code,title,course,tutorialAbstract,goals,estimatedTime,published
+1,B1001,Introducción a Python 2,"75caracteres Titulo para course1asdasdfafasdf&%$·begbl askdjcnh()[asdf""]{75",Principios básicos de la programación en Python para principiantes,"Entender sintaxis, variables y estructuras de control",60,false
+4,HO7007,Desarrollo móvil con React Native 2,"75caracteres Titulo para course1asdasdfafasdf&%$·begbl askdjcnh()[asdf""]{75",Creación de aplicaciones móviles multiplataforma con React Native,Implementar componentes y navegación,210,false
+6,KTZ1010,Desarrollo web con Ruby on Rails 2,()/=*-+$%&[]{},Introducción al desarrollo de aplicaciones web con Ruby on Rails,Entender MVC y crear aplicaciones Rails,95,false
