@@ -41,9 +41,8 @@ public class StudentActivityShowTest extends TestHarness {
 		super.signOut();
 	}
 
-	@ParameterizedTest
-	@CsvFileSource(resources = "/student/activity/create-negative.csv", encoding = "utf-8", numLinesToSkip = 1)
-	public void test200Negative(final int recordIndex, final String title, final String activityAbstract, final String indicator, final String periodStart, final String periodEnd, final String link, final String enrolment) {
+	@Test
+	public void test200Negative() {
 
 	}
 
