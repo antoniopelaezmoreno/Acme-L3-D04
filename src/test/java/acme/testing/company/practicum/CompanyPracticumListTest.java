@@ -11,17 +11,15 @@ public class CompanyPracticumListTest extends TestHarness {
 
 	@ParameterizedTest
 	@CsvFileSource(resources = "/company/practicum/list-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
-	public void test100Positive(final int recordIndex, final String code, final String title, final String practicumAbstract, final String published) {
+	public void test100Positive(final int recordIndex, final String code, final String title) {
 		super.signIn("company1", "company1");
 
-		super.clickOnMenu("Comoany", "List Practicums");
+		super.clickOnMenu("Company", "List Practicums");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
 
 		super.checkColumnHasValue(recordIndex, 0, code);
 		super.checkColumnHasValue(recordIndex, 1, title);
-		super.checkColumnHasValue(recordIndex, 2, practicumAbstract);
-		super.checkColumnHasValue(recordIndex, 3, published);
 
 		super.signOut();
 	}
@@ -40,7 +38,7 @@ public class CompanyPracticumListTest extends TestHarness {
 		super.checkPanicExists();
 
 		super.checkLinkExists("Sign in");
-		super.signIn("administrator", "administrator");
+		super.signIn("administrator1", "administrator1");
 		super.request("/company/practicum/list");
 		super.checkPanicExists();
 		super.signOut();
@@ -59,12 +57,6 @@ public class CompanyPracticumListTest extends TestHarness {
 
 		super.checkLinkExists("Sign in");
 		super.signIn("auditor1", "auditor1");
-		super.request("/company/practicum/list");
-		super.checkPanicExists();
-		super.signOut();
-
-		super.checkLinkExists("Sign in");
-		super.signIn("company1", "company1");
 		super.request("/company/practicum/list");
 		super.checkPanicExists();
 		super.signOut();

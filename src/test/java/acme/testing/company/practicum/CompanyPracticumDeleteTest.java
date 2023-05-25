@@ -86,7 +86,7 @@ public class CompanyPracticumDeleteTest extends TestHarness {
 			super.checkPanicExists();
 			super.signOut();
 
-			super.signIn("company1", "company1");
+			super.signIn("company2", "company2");
 			super.request("/company/practicum/delete", id);
 			super.checkPanicExists();
 			super.signOut();

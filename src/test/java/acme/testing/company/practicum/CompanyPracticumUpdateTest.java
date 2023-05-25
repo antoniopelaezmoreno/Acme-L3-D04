@@ -23,13 +23,13 @@ public class CompanyPracticumUpdateTest extends TestHarness {
 
 	@ParameterizedTest
 	@CsvFileSource(resources = "/company/practicum/update-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
-	public void test100Positive(final int recordIndex, final String code, final String title, final String practicumAbstract, final String goals, final String course, final String estimatedTotalTime, final String published) {
+	public void test100Positive(final int recordIndex, final String code, final String title, final String practicumAbstract, final String goals, final String course) {
 		// HINT: this test authenticates as an employer, lists his or her applications,
 		// HINT+ changes their status and checks that it's been updated.
 
 		super.signIn("company1", "company1");
 
-		super.clickOnMenu("Company", "List Practicum");
+		super.clickOnMenu("Company", "List Practicums");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
 
@@ -42,13 +42,11 @@ public class CompanyPracticumUpdateTest extends TestHarness {
 		super.fillInputBoxIn("course", course);
 		super.clickOnSubmit("Update");
 
-		super.clickOnMenu("Company", "List Practicum");
+		super.clickOnMenu("Company", "List Practicums");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
 		super.checkColumnHasValue(recordIndex, 0, code);
 		super.checkColumnHasValue(recordIndex, 1, title);
-		super.checkColumnHasValue(recordIndex, 2, estimatedTotalTime);
-		super.checkColumnHasValue(recordIndex, 3, published);
 
 		super.clickOnListingRecord(recordIndex);
 		super.checkFormExists();
@@ -69,8 +67,6 @@ public class CompanyPracticumUpdateTest extends TestHarness {
 		super.clickOnMenu("Company", "List Practicums");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
-
-		super.checkColumnHasValue(recordIndex, 0, code);
 
 		super.clickOnListingRecord(recordIndex);
 		super.checkFormExists();

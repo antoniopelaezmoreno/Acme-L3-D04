@@ -25,7 +25,7 @@ public class CompanyPracticumShowTest extends TestHarness {
 
 		super.signIn("company1", "company1");
 
-		super.clickOnMenu("Company", "List practicums");
+		super.clickOnMenu("Company", "List Practicums");
 		super.checkListingExists();
 		super.sortListing(0, "asc");
 		super.clickOnListingRecord(recordIndex);

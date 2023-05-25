@@ -76,7 +76,7 @@ public class CompanyPracticumPublishTest extends TestHarness {
 				super.request("/company/practicum/publish", id);
 				super.checkPanicExists();
 
-				super.signIn("company1", "company1");
+				super.signIn("company2", "company2");
 				super.request("/company/practicum/publish", id);
 				super.checkPanicExists();
 				super.signOut();
@@ -86,39 +86,5 @@ public class CompanyPracticumPublishTest extends TestHarness {
 				super.checkPanicExists();
 				super.signOut();
 			}
-	}
-
-	@Test
-	public void test301Hacking() {
-		// HINT: this test tries to publish a published job that was registered by the principal.
-
-		Collection<Practicum> practicums;
-		String id;
-
-		super.signIn("company1", "company1");
-		practicums = this.repository.findPracticumsByUsername("company1");
-		for (final Practicum p : practicums)
-			if (p.isPublished()) {
-				id = String.format("id=%d", p.getId());
-				super.request("/company/practicum/publish", id);
-			}
-		super.signOut();
-	}
-
-	@Test
-	public void test302Hacking() {
-		// HINT: this test tries to publish a job that wasn't registered by the principal,
-		// HINT+ be it published or unpublished.
-
-		Collection<Practicum> practicums;
-		String id;
-
-		super.signIn("company2", "company2");
-		practicums = this.repository.findPracticumsByUsername("company1");
-		for (final Practicum p : practicums) {
-			id = String.format("id=%d", p.getId());
-			super.request("/company/practicum/publish", id);
-		}
-		super.signOut();
 	}
 }

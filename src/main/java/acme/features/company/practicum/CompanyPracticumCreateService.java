@@ -67,6 +67,9 @@ public class CompanyPracticumCreateService extends AbstractService<Company, Prac
 	@Override
 	public void validate(final Practicum object) {
 		assert object != null;
+		final Collection<Course> courses;
+
+		courses = this.repository.findAllCourses().stream().filter(x -> x.getIndicator().equals(Indication.HANDS_ON)).collect(Collectors.toList());
 
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
 			Optional<Practicum> optPracticum;
@@ -74,8 +77,8 @@ public class CompanyPracticumCreateService extends AbstractService<Company, Prac
 			optPracticum = this.repository.findPracticumByCode(object.getCode());
 			if (optPracticum.isPresent())
 				super.state(optPracticum == null, "code", "company.practicum.form.error.duplicated");
-
 		}
+		super.state(courses.contains(object.getCourse()), "course", "company.practicum.form.error.wrongCourse");
 	}
 
 	@Override
