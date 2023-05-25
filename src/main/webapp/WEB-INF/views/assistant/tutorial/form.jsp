@@ -10,6 +10,9 @@
 	<jstl:if test="${showAssistant}">
 		<acme:input-textbox code="assistant.tutorial.form.label.assistant" path="assistant" readonly="true"/>
 	</jstl:if>
+	<jstl:if test="${!showAssistant}">
+		<acme:hidden-data path="assistant"/>
+	</jstl:if>
 	<acme:input-textarea code="assistant.tutorial.form.label.tutorialAbstract" path="tutorialAbstract"/>
 	<acme:input-textarea code="assistant.tutorial.form.label.goals" path="goals"/>
 	<acme:input-moment code="assistant.tutorial.form.label.estimatedTime" path="estimatedTime"/>
