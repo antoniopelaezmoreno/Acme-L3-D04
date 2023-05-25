@@ -55,7 +55,7 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 
 		Integer enrolmentId;
 		Enrolment enrolment;
-		String indicator;
+		//String indicator;
 
 		enrolmentId = super.getRequest().getData("enrolment", Integer.class);
 
@@ -63,9 +63,10 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 			enrolment = this.repository.findOneEnrolmentById(enrolmentId);
 		else
 			enrolment = null;
-		indicator = super.getRequest().getData("indicator", String.class);
+		//indicator = super.getRequest().getData("indicator", String.class);
+
 		System.out.println("El id es: " + enrolmentId);
-		System.out.println("El indicador es: " + indicator);
+		//System.out.println("El indicador es: " + indicator);
 
 		super.bind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
 		object.setEnrolment(enrolment);
@@ -76,6 +77,9 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 	@Override
 	public void validate(final Activity object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("enrolment"))
+			super.state(object.getEnrolment() != null, "enrolment", "student.activity.form.error.enrolment");
 
 		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
 			super.state(MomentHelper.isAfter(object.getPeriodEnd(), object.getPeriodStart()), "periodEnd", "student.activity.form.error.periodEnd");

@@ -1,6 +1,8 @@
 
 package acme.features.student.activity;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,15 +67,23 @@ public class StudentActivityShowService extends AbstractService<Student, Activit
 
 		boolean finalised;
 
+		int studentId;
+		Collection<Enrolment> enrolments;
+		SelectChoices choices;
 		SelectChoices indicators;
 		Tuple tuple;
 
+		studentId = super.getRequest().getPrincipal().getActiveRoleId();
+
 		finalised = this.repository.findOneEnrolmentById(object.getEnrolment().getId()).isFinalised();
+		enrolments = this.repository.findFinalisedEnrolmentsByStudentId(studentId);
+		choices = SelectChoices.from(enrolments, "code", object.getEnrolment());
 		indicators = SelectChoices.from(Indication.class, object.getIndicator());
 
 		tuple = super.unbind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
 		tuple.put("readonly", !finalised);
-		tuple.put("enrolment", object.getEnrolment().getCode());
+		tuple.put("enrolment", choices.getSelected().getKey());
+		tuple.put("enrolments", choices);
 		tuple.put("indicators", indicators);
 
 		super.getResponse().setData(tuple);
