@@ -51,8 +51,12 @@ public class StudentActivityListMineService extends AbstractService<Student, Act
 
 		Tuple tuple;
 
-		tuple = super.unbind(object, "title");
+		tuple = super.unbind(object, "title", "indicator");
 		tuple.put("enrolment", object.getEnrolment().getCode());
+		//if (object.getIndicator() == null)
+		//	tuple.put("indicator", "------------------");//tuple.put("indicator", object.getIndicator());
+		//		else
+		//			tuple.put("indicator", "----");
 
 		super.getResponse().setData(tuple);
 	}

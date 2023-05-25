@@ -1,0 +1,12 @@
+recordIndex, title, activityAbstract, indicator, periodStart, periodEnd, link, enrolment
+3,,,---,,,,ABC1234
+3,,new abstract of activity 1,HANDS_ON,2023/01/01 11:00,2023/01/01 10:00,,ABC1234
+3,new title of activity 2,,HANDS_ON,2023/01/01 10:00,2023/01/01 11:00,,ABC1234
+3,new title of activity 3,,THEORETICAL,2023/01/01 10:00,2023/01/01 11:00,,ABC1234
+3,nuevo titulo de activity 4,new abstract of activity 4,---,,2023/01/01 11:00,http://www.acme.es,---
+3,nuevo titulo de activity,new abstract of activity 5,HANDS_ON,2023/01/01 10:00,,,ABC1234
+3,new title,new abstract of activity 6,THEORETICAL,2023/01/01 10:00,2023/01/01 11:00,nueva url,---
+3,,,THEORETICAL,2023/01/01 10:00,2023/01/01 11:00,,ABC1234
+3,Este es un texto de 76 caracteres ssssssssssssssssssssssssssssssssssssssss76,new abstract of activity 11,HANDS_ON,2023/01/01 12:00,2023/01/01 13:00,url random,ABC1234
+3,new title of activity 2,Este es un texto de 101 caracteres sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss101,HANDS_ON,2023/01/01 12:00,2023/01/01 13:00,http://www.acme.es,ABC1234
+3,Este es un texto de 76 caracteres ssssssssssssssssssssssssssssssssssssssss76,Este es un texto de 101 caracteres sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss101,HANDS_ON,2023/01/01 12:00,2023/01/01 13:00,http://www.acme.es,ABC1234

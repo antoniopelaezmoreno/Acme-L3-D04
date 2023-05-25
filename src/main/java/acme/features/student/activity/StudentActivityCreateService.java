@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import acme.entities.activity.Activity;
 import acme.entities.enrolment.Enrolment;
-import acme.enums.Indication;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.helpers.MomentHelper;
@@ -57,10 +56,15 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 		Enrolment enrolment;
 
 		enrolmentId = super.getRequest().getData("enrolment", Integer.class);
-		enrolment = enrolmentId != null ? this.repository.findOneEnrolmentById(enrolmentId) : null;
+
+		enrolment = this.repository.findOneEnrolmentById(enrolmentId);
+		//indicator = super.getRequest().getData("indicator", String.class);
+		//System.out.println("El id es: " + enrolmentId);
+		//System.out.println("El indicador es: " + indicator);
 
 		super.bind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
 		object.setEnrolment(enrolment);
+		//System.out.println(enrolment);
 
 	}
 
@@ -90,6 +94,8 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 		else
 			enrolment.setWorkTime(duration);
 
+		//object.setIndicator(null);
+
 		this.repository.save(object);
 		this.repository.save(enrolment);
 	}
@@ -100,20 +106,20 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 
 		int studentId;
 		Collection<Enrolment> enrolments;
-		SelectChoices indicators;
 		SelectChoices choices;
+		//SelectChoices indicators;
 		Tuple tuple;
 
 		studentId = super.getRequest().getPrincipal().getActiveRoleId();
 
 		enrolments = this.repository.findFinalisedEnrolmentsByStudentId(studentId);
 		choices = SelectChoices.from(enrolments, "code", object.getEnrolment());
-		indicators = SelectChoices.from(Indication.class, object.getIndicator());
+		//indicators = SelectChoices.from(Indication.class, object.getIndicator());
 
 		tuple = super.unbind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
 		tuple.put("enrolment", choices.getSelected().getKey());
 		tuple.put("enrolments", choices);
-		tuple.put("indicators", indicators);
+		//tuple.put("indicators", indicators);
 
 		super.getResponse().setData(tuple);
 	}
