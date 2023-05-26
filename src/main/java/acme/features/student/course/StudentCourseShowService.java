@@ -59,24 +59,18 @@ public class StudentCourseShowService extends AbstractService<Student, Course> {
 	public void unbind(final Course object) {
 		assert object != null;
 
-		//Collection<Lecture> lectures;
-		//final SelectChoices choices;
 		Tuple tuple;
-
-		//lectures = this.repository.findLecturesByCourseId(object.getId());
-		//choices = SelectChoices.from(lectures, "title");
+		final String lecturerName = object.getLecturer().getUserAccount().getIdentity().getName();
+		final String lecturerSurname = object.getLecturer().getUserAccount().getIdentity().getSurname();
 
 		SelectChoices indicators;
-		//Tuple tuple;
 
 		indicators = SelectChoices.from(Indication.class, object.getIndicator());
 
 		tuple = super.unbind(object, "code", "title", "courseAbstract", "indicator", "retailPrice", "link");
 		tuple.put("readonly", true);
 		tuple.put("indicators", indicators);
-		tuple.put("lecturer", object.getLecturer().getAlmaMater());
-		//tuple.put("lecture", choices.getSelected().getKey());
-		//tuple.put("lectures", choices);
+		tuple.put("lecturer", lecturerName + " " + lecturerSurname);
 
 		super.getResponse().setData(tuple);
 	}

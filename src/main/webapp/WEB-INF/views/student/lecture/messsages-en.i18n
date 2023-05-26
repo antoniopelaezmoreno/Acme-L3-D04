@@ -1,0 +1,10 @@
+student.lecture.list.label.title = Title
+student.lecture.list.label.lectureAbstract = Lecture Abstract
+student.lecture.list.label.indicator = Type
+
+student.lecture.form.label.title = Title
+student.lecture.form.label.lectureAbstract = Lecture Abstract
+student.lecture.form.label.estimatedTime = Estimated Time
+student.lecture.form.label.body = Body
+student.lecture.form.label.indicator = Type
+student.lecture.form.label.link = Link

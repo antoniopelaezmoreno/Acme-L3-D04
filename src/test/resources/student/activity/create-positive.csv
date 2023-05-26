@@ -1,4 +1,4 @@
 recordIndex,title,activityAbstract,indicator,periodStart,periodEnd,link,enrolment
-1,activity 1,abstract activity 1,THEORETICAL,2023/01/01 10:00,2023/02/01 11:00,http://www.google.es,ABC1234
+1,activity 1,abstract activity 1,THEORY,2023/01/01 10:00,2023/02/01 11:00,http://www.google.es,ABC1234
 2,activity 2,abstract activity 2,HANDS_ON,2020/02/01 10:00,2023/01/01 13:00,https://www.youtube.com/,ABC1234
-3,activity 4,abstract activity 4,THEORETICAL,2022/08/23 12:00,2023/07/20 13:00,,BC6437
+3,activity 4,abstract activity 4,THEORY,2022/08/23 12:00,2023/07/20 13:00,,BC6437
