@@ -1,0 +1,10 @@
+student.lecture.list.label.title = Título
+student.lecture.list.label.lectureAbstract = Resumen de la clase
+student.lecture.list.label.indicator = Tipo
+
+student.lecture.form.label.title = Título
+student.lecture.form.label.lectureAbstract = Resumen de la clase
+student.lecture.form.label.estimatedTime = Tiempo estimado
+student.lecture.form.label.body = Cuerpo
+student.lecture.form.label.indicator = Tipo
+student.lecture.form.label.link = Enlace

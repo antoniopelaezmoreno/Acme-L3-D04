@@ -32,11 +32,11 @@ public class StudentActivityShowTest extends TestHarness {
 
 		super.checkInputBoxHasValue("title", title);
 		super.checkInputBoxHasValue("activityAbstract", activityAbstract);
-		super.checkInputBoxHasValue("indicator", indicator);
+		super.checkInputBoxHasValue("indicator_proxy", indicator);
 		super.checkInputBoxHasValue("periodStart", periodStart);
 		super.checkInputBoxHasValue("periodEnd", periodEnd);
 		super.checkInputBoxHasValue("link", link);
-		super.checkInputBoxHasValue("enrolment", enrolment);
+		super.checkInputBoxHasValue("enrolment_proxy", enrolment);
 
 		super.signOut();
 	}
