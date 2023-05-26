@@ -1,0 +1,3 @@
+tutorialIndex,recordIndex,title,tutorial,sessionAbstract,indication,periodStart,periodEnd,link,published
+0,1,Introducción a la programación en Python 2,Introducción a Python,Conceptos básicos de Python para principiantes 2,THEORETICAL,2025/09/01 10:00,2025/09/01 11:00,https://www.example12.com,false
+0,3,Variables y estructuras de control en Python 2,Introducción a Python,Aprende a utilizar variables y estructuras de control en Python 2,HANDS_ON,2025/09/02 14:00,2025/09/02 16:00,https://www.example22.com,false

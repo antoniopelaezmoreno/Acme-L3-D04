@@ -1,0 +1,5 @@
+tutorialIndex,recordIndex,title,indication,periodStart,periodEnd,published
+0,0,Introducción a la programación en Python,THEORETICAL,2025/09/01 10:00,2025/09/01 11:00,true
+0,1,Variables y estructuras de control en Python,HANDS_ON,2025/09/02 14:00,2025/09/02 16:00,false
+2,0,Gráficos interactivos con R,HANDS_ON,2025/09/08 14:00,2025/09/08 16:00,false
+2,1,Introducción a la visualización de datos con R,THEORETICAL,2025/09/07 11:00,2025/09/07 12:00,true

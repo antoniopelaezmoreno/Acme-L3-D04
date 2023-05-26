@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import acme.entities.course.Course;
 import acme.entities.tutorial.Tutorial;
-import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -46,16 +45,12 @@ public class AssistantTutorialShowService extends AbstractService<Assistant, Tut
 		Tutorial tutorial;
 		Collection<Tutorial> myTutorials;
 		Principal principal;
-		boolean restriction1;
-		boolean restriction2;
 
 		id = super.getRequest().getData("id", int.class);
 		tutorial = this.repository.findTutorialById(id);
 		principal = super.getRequest().getPrincipal();
 		myTutorials = this.repository.findManyTutorialsByAssistantId(principal.getActiveRoleId());
-		restriction1 = tutorial != null && !tutorial.isPublished() && principal.hasRole(Assistant.class) && myTutorials.contains(tutorial);
-		restriction2 = tutorial != null && tutorial.isPublished() && principal.hasRole(Authenticated.class);
-		status = restriction1 || restriction2;
+		status = tutorial != null && principal.hasRole(Assistant.class) && myTutorials.contains(tutorial);
 
 		super.getResponse().setAuthorised(status);
 	}
