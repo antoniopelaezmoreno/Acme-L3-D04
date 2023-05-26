@@ -45,7 +45,7 @@ public class AuditorAuditingRecordDeleteService extends AbstractService<Auditor,
 
 		final Audit audit = auditingRecord.getAudit();
 		if (audit != null)
-			status = audit.isPublished();
+			status = !audit.isPublished();
 
 		super.getResponse().setAuthorised(status);
 	}

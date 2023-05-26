@@ -101,7 +101,7 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 		int studentId;
 		Collection<Enrolment> enrolments;
 		SelectChoices choices;
-		SelectChoices indicators;
+		//SelectChoices indicators;
 		Tuple tuple;
 
 		studentId = super.getRequest().getPrincipal().getActiveRoleId();
@@ -113,7 +113,7 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 		tuple = super.unbind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
 		tuple.put("enrolment", choices.getSelected().getKey());
 		tuple.put("enrolments", choices);
-		tuple.put("indicators", indicators);
+		//tuple.put("indicators", indicators);
 
 		super.getResponse().setData(tuple);
 	}
