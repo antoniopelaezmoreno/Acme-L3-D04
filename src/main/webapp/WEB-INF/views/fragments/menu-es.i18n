@@ -62,6 +62,7 @@ master.menu.administrator.banner.list = Listar banners
 
 master.menu.lecturer = Profesor
 master.menu.lecturer.course-list-mine = Listar mis cursos
+master.menu.lecturer.add-lecture-course = Añadir Clase a Curso
 
 # master.menu.auditor ########################################################
 

@@ -13,6 +13,7 @@
 package acme.features.lecturer.course;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,6 +97,21 @@ public class LecturerCoursePublishService extends AbstractService<Lecturer, Cour
 		final Collection<Lecture> lectures = this.repository.findManyLecturesByCourseId(object.getId());
 		final boolean allPublished = lectures.stream().allMatch(x -> x.isPublished() == true);
 		super.state(allPublished, "*", "lecturer.course.form.error.allPublished");
+		super.state(!lectures.isEmpty(), "*", "lecturer.course.form.error.emptyLectures");
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+			boolean valid;
+			Optional<Course> existing;
+
+			existing = this.repository.findOneCourseByCode(object.getCode());
+			if (!existing.isPresent())
+				valid = true;
+			else if (existing.get().getId() == object.getId())
+				valid = true;
+			else
+				valid = false;
+			super.state(valid, "code", "lecturer.course.form.error.duplicated");
+		}
 
 	}
 
