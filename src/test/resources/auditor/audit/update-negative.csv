@@ -1,0 +1,6 @@
+recordIndex,code,conclusion,strongPoints,weakPoints,course
+0,ZE906,cambio el codigo por uno existente,+corto,+laaaaaaaaargooo,()/=*-+$%&[]{}
+0,AB195,conclusion para un audit X con mas caracteres de la cuenta                                           100,strongPoints para audit 1 con mas characters 50,A,75caracteres Titulo para course1asdasdfafasdf&%$·begbl askdjcnh()[asdf"]{75
+0,AA111,conclusion cambiada,strong cambiado para que falle por exceso de caracteres mayor del limite                           101,W,75caracteres Titulo para course1asdasdfafasdf&%$·begbl askdjcnh()[asdf"]{75
+0,AAA111,Cambio todo,Cambio todo,weak  cambiado para que falle por exceso de caracteres mayor del limite                           101,75caracteres Titulo para course1asdasdfafasdf&%$·begbl askdjcnh()[asdf"]{75
+1,AAA112,conclusion de otro audit cambiada                                                               100,S,weakPointsfor audit 3 but with more characters ccccccccccccccccccccccccccccccccccccccccccccccccc 100,---

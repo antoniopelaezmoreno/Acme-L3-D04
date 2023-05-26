@@ -18,6 +18,7 @@ auditor.audit.form.button.auditingRecords = Registros de auditoría
 auditor.audit.auditingRecords = Ver registros de auditoria
 auditor.audit.form.button.update = Actualizar
 auditor.audit.form.button.delete = Eliminar
+auditor.audit.form.button.publish = Publicar
 
 auditor.audit.form.error.duplicated = Este código ya está en uso
 auditor.audit.form.chooseCourse = Seleccionar ID del curso

@@ -2,7 +2,7 @@
 package acme.features.auditor.audit;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import acme.entities.audit.Audit;
 import acme.entities.auditingRecords.AuditingRecords;
 import acme.entities.course.Course;
-import acme.enums.Indication;
-import acme.enums.Mark;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -68,21 +66,18 @@ public class AuditorAuditPublishService extends AbstractService<Auditor, Audit> 
 	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "course", "published");
+		super.bind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published");
 	}
 
 	@Override
 	public void validate(final Audit object) {
 		assert object != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("indicator")) {
-			int id;
-			id = super.getRequest().getData("id", int.class);
+		final Collection<AuditingRecords> aRs = this.repository.findManyAuditingRecordsByAuditId(object.getId());
+		final boolean allPublished = aRs.stream().allMatch(x -> x.isPublished() == true);
+		super.state(!aRs.isEmpty(), "*", "company.practicum.form.error.emptyAudit");
+		super.state(allPublished, "*", "auditingRecords.audit.form.error.allPublished");
 
-			final Collection<AuditingRecords> auditingRecords = this.repository.findAuditingRecordsByAuditId(id);
-			final boolean onlyTheoretical = auditingRecords.stream().allMatch(x -> x.getAudit().getCourse().equals(Indication.THEORETICAL));
-			super.state(!onlyTheoretical, "indicator", "Auditor.Audit.form.error.onlyTheoretical");
-		}
 	}
 
 	@Override
@@ -97,23 +92,34 @@ public class AuditorAuditPublishService extends AbstractService<Auditor, Audit> 
 	public void unbind(final Audit object) {
 		assert object != null;
 
-		SelectChoices marks;
-		SelectChoices courses2;
+		//		SelectChoices marks;
+		//		SelectChoices courses2;
+		//		Tuple tuple;
+		//		Collection<Course> courses;
+		//
+		//		courses = this.repository.findAllPublishedCourses();
+		//		final List<Course> auditsCourse = this.repository.findAllCoursesFromAudit();
+		//
+		//		courses.removeAll(auditsCourse);
+		//		courses.add(object.getCourse());
+		//
+		//		courses2 = SelectChoices.from(courses, "title", object.getCourse());
+		//
+		//		marks = SelectChoices.from(Mark.class, object.getMark());
+		//
+		//		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published", "course");
+		//		tuple.put("marks", marks);
+		//		tuple.put("courses", courses2);
+		//
+		//		super.getResponse().setData(tuple);
+
 		Tuple tuple;
-		Collection<Course> courses;
 
-		courses = this.repository.findAllPublishedCourses();
-		final List<Course> auditsCourse = this.repository.findAllCoursesFromAudit();
+		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published");
 
-		courses.removeAll(auditsCourse);
-		courses.add(object.getCourse());
+		final Collection<Course> courses = this.repository.findAllCourses().stream().filter(x -> x.isPublished()).collect(Collectors.toList());
 
-		courses2 = SelectChoices.from(courses, "title", object.getCourse());
-
-		marks = SelectChoices.from(Mark.class, object.getMark());
-
-		tuple = super.unbind(object, "code", "conclusion", "strongPoints", "weakPoints", "mark", "published", "course");
-		tuple.put("marks", marks);
+		final SelectChoices courses2 = SelectChoices.from(courses, "title", object.getCourse());
 		tuple.put("courses", courses2);
 
 		super.getResponse().setData(tuple);

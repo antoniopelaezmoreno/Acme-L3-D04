@@ -1,0 +1,5 @@
+auditIndex,recordIndex,subject,assessment,periodStart,periodEnd,mark,published,link,addendum
+0,0,b,assesment for auditingRecord 5 with characters  50,2021/12/20 23:00,2021/12/20 23:30,B,true,,false
+0,1,subject for auditingRecord 1 but with 75 characters cccccccccccccccccccc 75,assesment for auditingRecord 1 but with more characters cccccccccccccccccccccccccccccccccccccccc 100,2021/12/20 23:00,2021/12/20 23:30,A,true,https://www.wizardingworld.com/,false
+0,2,subject with more characters,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa100,2021/12/20 23:00,2021/12/20 23:30,A,true,,false
+1,0,drawing,assessment X,2022/07/29 22:59,2022/07/29 23:59,A,false,https://www.wizardingworld.com/,false

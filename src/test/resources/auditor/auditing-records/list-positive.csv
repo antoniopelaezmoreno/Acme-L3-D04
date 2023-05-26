@@ -1,0 +1,4 @@
+auditIndex,recordIndex,subject,periodStart,periodEnd,mark,published,addendum
+0,0,b,2021/12/20 23:00,2021/12/20 23:30,B,true,false
+0,1,subject for auditingRecord 1 but with 75 characters cccccccccccccccccccc 75,2021/12/20 23:00,2021/12/20 23:30,A,true,false
+0,2,subject with more characters,2021/12/20 23:00,2021/12/20 23:30,A,true,false

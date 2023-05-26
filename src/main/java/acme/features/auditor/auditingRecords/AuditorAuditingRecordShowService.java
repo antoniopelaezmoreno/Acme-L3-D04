@@ -43,7 +43,6 @@ public class AuditorAuditingRecordShowService extends AbstractService<Auditor, A
 
 		id = super.getRequest().getData("id", int.class);
 		auditingRecord = this.repository.findOneAuditingRecord(id);
-		// super.getResponse().setGlobal("id", id);
 
 		super.getBuffer().setData(auditingRecord);
 	}
@@ -59,7 +58,6 @@ public class AuditorAuditingRecordShowService extends AbstractService<Auditor, A
 
 		tuple = super.unbind(auditingRecord, "subject", "assessment", "periodStart", "periodEnd", "mark", "published", "link");
 		tuple.put("marks", marks);
-		// tuple.put("published", auditingRecord.getAudit().isPublished());
 
 		super.getResponse().setData(tuple);
 	}

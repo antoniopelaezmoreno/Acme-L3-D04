@@ -1,0 +1,5 @@
+auditIndex,recordIndex,subject,assessment,periodStart,periodEnd,mark,link
+2,0,Actualizo este campo,assesment for with characters  50,2021/12/20 22:00,2021/12/20 23:30,B,https://www.youtube.com/
+2,0,Actualizo subject2,assessment change                                                                      100,2021/12/20 22:00,2021/12/20 23:30,B,https://www.youtube.com/
+2,1,subject for auditingRecord 1 but with 75 characters  75,assesment for auditingRecord 1 but with more characters ccccccccccccccccccccccccccccccccccccc 100,2021/12/20 22:00,2021/12/20 23:00,A,
+2,1,subject with more characters,cambio la hora y la mark,2021/12/20 22:00,2021/12/20 23:30,C,https://www.youtube.com/
