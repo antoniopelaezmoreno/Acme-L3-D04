@@ -1,0 +1,15 @@
+practicum-index,record-index,title,session-abstract,period-start,period-end,link
+1,0,Practicum session,Session abstract number with 101 characters                                                       101,2022/08/06 00:00,2022/08/13 00:00,https://google.com
+1,0,,A,2023/10/01 05:30,2023/10/11 01:01,http://google.es
+1,0,Practicum session title with more strange characters ?¿^*`+[{}]ç,Session abstract number with 101 characters                                                       101,2022/08/06 00:00,2022/08/13 00:01,https://youtube.com
+1,0,Practicum session with 76 characters                                      76,"Abstract of practicum session with stranger characters /*-+$%&/·""!#€",2022/10/01 05:30,2022/10/11 01:01,http://youtube.es
+1,0,P,Session abstract number with 100 characters                                                      100,2024/10/01 05:30,2024/10/08 05:29,
+1,0,Practicum session title with more strange characters ?¿^*`+[{}]ç,,2022/08/06 00:00,2022/08/15 23:59,http://google.com
+1,0,Practicum session with 75 characters                                     75,A,2022/08/05 23:59,2022/08/13 00:00,http://google.es
+2,0,Practicum session title with more strange characters ?¿^*`+[{}]ç,Abstract of practicum session,,,https://google.es
+2,0,,Session abstract number with 100 characters                                                      100,2022/08/30 00:00,2022/09/07 10:50,
+2,0,Practicum session with 75 characters                                     75,A,2022/10/02 05:30,2022/10/01 01:01,https://google.es
+2,0,P,"Abstract of practicum session with stranger characters /*-+$%&/·""!#€",2022/08/06 00:00,,http://google.com
+2,0,Practicum session title with more strange characters ?¿^*`+[{}]ç,,2023/06/01 21:30,2023/06/08 21:30,https://youtube.es
+2,0,,A,2023/06/05 23:59,2023/06/15 14:30,
+2,0,Practicum session with 75 characters                                     75,Session abstract number with 100 characters                                                      100,,2022/08/13 00:00,http://youtube.com

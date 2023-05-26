@@ -75,13 +75,13 @@ public class CompanyPracticumSessionUpdateService extends AbstractService<Compan
 
 			minStart = MomentHelper.deltaFromMoment(MomentHelper.getCurrentMoment(), 7, ChronoUnit.DAYS);
 			super.state(MomentHelper.isAfterOrEqual(object.getPeriodStart(), minStart), "periodStart", "company.practicumSession.form.error.periodStart");
-		}
 
-		if (!super.getBuffer().getErrors().hasErrors("periodEnd")) {
-			Date minEnd;
+			if (!super.getBuffer().getErrors().hasErrors("periodEnd")) {
+				Date minEnd;
 
-			minEnd = MomentHelper.deltaFromMoment(object.getPeriodStart(), 7, ChronoUnit.DAYS);
-			super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), minEnd), "periodEnd", "company.practicumSession.form.error.periodEnd");
+				minEnd = MomentHelper.deltaFromMoment(object.getPeriodStart(), 7, ChronoUnit.DAYS);
+				super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), minEnd), "periodEnd", "company.practicumSession.form.error.periodEnd");
+			}
 		}
 	}
 

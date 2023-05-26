@@ -4,3 +4,7 @@ practicum-session-02,Title of practicum 2 with 75 characters                    
 practicum-session-03,Title of practicum 3,Abstract,2024/03/03 15:00,2024/03/11 16:30,,true,false,practicum-01
 practicum-session-04,Title,A,2024/04/04 17:00,2024/04/11 18:40,,false,false,practicum-03
 practicum-session-05,Title of practicum 5 with more characters,Session abstract number 5 with 100 characters                                                    100,2024/05/05 19:00,2024/05/30 20:50,https://google.com/,true,false,practicum-04
+practicum-session-06,Title of practicum 6 with more characters,Session abstract 6,2022/11/04 12:30,2022/11/11 12:31,https://google.com/,false,false,practicum-04
+practicum-session-07,Title of practicum 7 ?¿^*[]{},Session abstract number 7,2022/10/01 05:30,2022/10/11 01:01,,false,false,practicum-04
+practicum-session-08,Title of practicum 8,Session abstract number 8 $%&/()=@#€,2022/08/06 00:00,2022/08/13 00:00,http://google.com/,false,false,practicum-04
+practicum-session-09,Title of practicum session 9,Session abstract number 9,2022/08/06 00:00,2022/08/13 00:00,http://google.com/,true,false,practicum-06
