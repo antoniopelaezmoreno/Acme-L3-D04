@@ -29,7 +29,7 @@ public class Course extends AbstractEntity {
 	 */
 	private static final long	serialVersionUID	= 1L;
 
-	@Pattern(regexp = "[A-Z]{1,3}[0-9]{3}")
+	@Pattern(regexp = "[A-ZÑ]{1,3}[0-9]{3}")
 	@NotBlank
 	@Column(unique = true)
 	protected String			code;
