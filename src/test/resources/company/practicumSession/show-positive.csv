@@ -1,0 +1,7 @@
+practicum-index,record-index,title,session-abstract,period-start,period-end,link,published,practicum
+0,0,T,Session abstract number 1,2024/01/01 00:00,2024/01/09 12:10,http://google.com/,true,This is the title of practicum 1 with 75 characters                      75
+0,1,Title of practicum 3,Abstract,2024/03/03 15:00,2024/03/11 16:30,,true,This is the title of practicum 1 with 75 characters                      75
+2,0,Title of practicum 5 with more characters,Session abstract number 5 with 100 characters                                                    100,2024/05/05 19:00,2024/05/30 20:50,https://google.com/,true,This is the title of practicum 4 but have more characters
+2,1,Title of practicum 6 with more characters,Session abstract 6,2022/11/04 12:30,2022/11/11 12:31,https://google.com/,false,This is the title of practicum 4 but have more characters
+2,2,Title of practicum 7 ?¿^*[]{},Session abstract number 7,2022/10/01 05:30,2022/10/11 01:01,,false,This is the title of practicum 4 but have more characters
+2,3,Title of practicum 8,Session abstract number 8 $%&/()=@#€,2022/08/06 00:00,2022/08/13 00:00,http://google.com/,false,This is the title of practicum 4 but have more characters

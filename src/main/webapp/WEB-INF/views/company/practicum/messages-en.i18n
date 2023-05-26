@@ -21,3 +21,4 @@ company.practicum.form.button.sessions = Sessions
 company.practicum.form.error.duplicated = This code already used
 company.practicum.form.error.allPublished = There are not published sessions
 company.practicum.form.error.emptyPracticum = There are not sessions in this practicum
+company.practicum.form.error.wrongCourse = This course can not be selected

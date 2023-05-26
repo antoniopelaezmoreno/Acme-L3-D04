@@ -78,13 +78,17 @@ public class CompanyPracticumPublishService extends AbstractService<Company, Pra
 
 		final Collection<PracticumSession> sessions = this.repository.findAllSessionByPracticumId(object.getId());
 
+		final Collection<Course> courses;
+
+		courses = this.repository.findAllCourses().stream().filter(x -> x.getIndicator().equals(Indication.HANDS_ON)).collect(Collectors.toList());
+
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
 			Optional<Practicum> optPracticum;
 
 			optPracticum = this.repository.findPracticumByCode(object.getCode());
 			super.state(!optPracticum.isPresent() || optPracticum.get().getId() == object.getId(), "code", "company.practicum.form.error.duplicated");
-
 		}
+		super.state(courses.contains(object.getCourse()), "course", "company.practicum.form.error.wrongCourse");
 
 		super.state(!sessions.isEmpty(), "*", "company.practicum.form.error.emptyPracticum");
 		super.state(sessions.stream().map(PracticumSession::isPublished).allMatch(x -> x), "*", "company.practicum.form.error.allPublished");
