@@ -22,7 +22,7 @@ public class AssistantTutorialListTest extends TestHarness {
 
 	@ParameterizedTest
 	@CsvFileSource(resources = "/assistant/tutorial/list-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
-	public void test100Positive(final int recordIndex, final String code, final String title, final String estimatedTime, final String published) {
+	public void test100Positive(final int recordIndex, final String code, final String title, final String estimatedTime) {
 		// HINT: this test authenticates as an assistant, lists his or her tutorials only,
 		// HINT+ and then checks that the listing has the expected data.
 
