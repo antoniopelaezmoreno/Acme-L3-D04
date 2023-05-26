@@ -19,7 +19,7 @@ public class StudentActivityUpdateTest extends TestHarness {
 
 	@ParameterizedTest
 	@CsvFileSource(resources = "/student/activity/update-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
-	public void test100Positive(final int recordIndex, final String title, final String activityAbstract, final String indicator, final String periodStart, final String periodEnd, final String link) {
+	public void test100Positive(final int recordIndex, final String title, final String activityAbstract, final String indicator, final String periodStart, final String periodEnd, final String link, final String enrolment) {
 		// HINT: this test authenticates as an student, list his or her activities and update new activities with correct data.
 
 		super.signIn("student1", "student1");
@@ -36,6 +36,7 @@ public class StudentActivityUpdateTest extends TestHarness {
 		super.fillInputBoxIn("periodStart", periodStart);
 		super.fillInputBoxIn("periodEnd", periodEnd);
 		super.fillInputBoxIn("link", link);
+		super.fillInputBoxIn("enrolment", enrolment);
 		super.clickOnSubmit("Update");
 
 		super.clickOnMenu("Student", "My activities");
@@ -48,17 +49,18 @@ public class StudentActivityUpdateTest extends TestHarness {
 		super.checkFormExists();
 		super.checkInputBoxHasValue("title", title);
 		super.checkInputBoxHasValue("activityAbstract", activityAbstract);
-		super.checkInputBoxHasValue("indicator", indicator);
+		super.checkInputBoxHasValue("indicator_proxy", indicator);
 		super.checkInputBoxHasValue("periodStart", periodStart);
 		super.checkInputBoxHasValue("periodEnd", periodEnd);
 		super.checkInputBoxHasValue("link", link);
+		super.checkInputBoxHasValue("enrolment_proxy", enrolment);
 
 		super.signOut();
 	}
 
 	@ParameterizedTest
 	@CsvFileSource(resources = "/student/activity/update-negative.csv", encoding = "utf-8", numLinesToSkip = 1)
-	public void test200Negative(final int recordIndex, final String title, final String activityAbstract, final String indicator, final String periodStart, final String periodEnd, final String link) {
+	public void test200Negative(final int recordIndex, final String title, final String activityAbstract, final String indicator, final String periodStart, final String periodEnd, final String link, final String enrolment) {
 
 		// HINT: this test attempts to update activities using wrong data.
 
@@ -76,6 +78,7 @@ public class StudentActivityUpdateTest extends TestHarness {
 		super.fillInputBoxIn("periodStart", periodStart);
 		super.fillInputBoxIn("periodEnd", periodEnd);
 		super.fillInputBoxIn("link", link);
+		super.fillInputBoxIn("enrolment", enrolment);
 		super.clickOnSubmit("Update");
 		super.checkErrorsExist();
 

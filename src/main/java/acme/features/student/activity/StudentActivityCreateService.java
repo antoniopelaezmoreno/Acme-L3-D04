@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.activity.Activity;
+import acme.entities.activity.ActivityType;
 import acme.entities.enrolment.Enrolment;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -55,16 +56,11 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 		Integer enrolmentId;
 		Enrolment enrolment;
 
-		enrolmentId = super.getRequest().getData("enrolment", Integer.class);
-
+		enrolmentId = super.getRequest().getData("enrolment_proxy", Integer.class);
 		enrolment = this.repository.findOneEnrolmentById(enrolmentId);
-		//indicator = super.getRequest().getData("indicator", String.class);
-		//System.out.println("El id es: " + enrolmentId);
-		//System.out.println("El indicador es: " + indicator);
 
 		super.bind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
 		object.setEnrolment(enrolment);
-		//System.out.println(enrolment);
 
 	}
 
@@ -72,10 +68,7 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 	public void validate(final Activity object) {
 		assert object != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("enrolment"))
-			super.state(object.getEnrolment() != null, "enrolment", "student.activity.form.error.enrolment");
-
-		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
+		if (!super.getBuffer().getErrors().hasErrors("periodEnd") && !super.getBuffer().getErrors().hasErrors("periodStart"))
 			super.state(MomentHelper.isAfter(object.getPeriodEnd(), object.getPeriodStart()), "periodEnd", "student.activity.form.error.periodEnd");
 
 	}
@@ -97,8 +90,6 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 		else
 			enrolment.setWorkTime(duration);
 
-		//object.setIndicator(null);
-
 		this.repository.save(object);
 		this.repository.save(enrolment);
 	}
@@ -117,7 +108,7 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 
 		enrolments = this.repository.findFinalisedEnrolmentsByStudentId(studentId);
 		choices = SelectChoices.from(enrolments, "code", object.getEnrolment());
-		//indicators = SelectChoices.from(Indication.class, object.getIndicator());
+		indicators = SelectChoices.from(ActivityType.class, object.getIndicator());
 
 		tuple = super.unbind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
 		tuple.put("enrolment", choices.getSelected().getKey());
