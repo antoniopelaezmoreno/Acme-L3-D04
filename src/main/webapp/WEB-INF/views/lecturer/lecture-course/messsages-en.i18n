@@ -1,0 +1,9 @@
+lecturer.lectureCourse.form.label.course = Course
+lecturer.lectureCourse.form.label.lecture = Lecture
+
+lecturer.lectureCourse.form.button.add = Add
+
+lecturer.lecturerCourse.form.error.courseProperty = This is not one of your courses
+lecturer.lecturerCourse.form.error.lectureProperty = This is not one of your lectures
+lecturer.lecturerCourse.form.error.alreadyExists = This lectures already belongs to this course
+lecturer.lecturerCourse.form.error.published = This course is published

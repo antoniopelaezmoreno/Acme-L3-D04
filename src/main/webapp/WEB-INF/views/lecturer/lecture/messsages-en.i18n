@@ -2,6 +2,8 @@ lecturer.lecture.list.label.title = Title
 lecturer.lecture.list.label.lectureAbstract = Lecture Abstract
 lecturer.lecture.list.label.indicator = Type
 lecturer.lecture.list.label.published = Published
+lecturer.lecture.list.label.published.true = True
+lecturer.lecture.list.label.published.false = False
 
 lecturer.lecture.form.label.title = Title
 lecturer.lecture.form.label.lectureAbstract = Lecture Abstract

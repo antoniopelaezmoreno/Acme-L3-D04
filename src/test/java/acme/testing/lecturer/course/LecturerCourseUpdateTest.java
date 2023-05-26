@@ -24,8 +24,6 @@ public class LecturerCourseUpdateTest extends TestHarness {
 	@ParameterizedTest
 	@CsvFileSource(resources = "/lecturer/course/update-positive.csv", encoding = "utf-8", numLinesToSkip = 1)
 	public void test100Positive(final int recordIndex, final String code, final String title, final String courseAbstract, final String indicator, final String retailPrice, final String link, final String published) {
-		// HINT: this test authenticates as an employer, lists his or her applications,
-		// HINT+ changes their status and checks that it's been updated.
 
 		super.signIn("lecturer1", "lecturer1");
 

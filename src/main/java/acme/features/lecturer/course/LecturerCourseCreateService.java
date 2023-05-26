@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.course.Course;
+import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.enums.Indication;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -74,6 +75,10 @@ public class LecturerCourseCreateService extends AbstractService<Lecturer, Cours
 			Double amount;
 			amount = object.getRetailPrice().getAmount();
 			super.state(amount >= 0, "retailPrice", "lecturer.course.form.error.negativePrice");
+
+			final SystemConfiguration systemConfig = this.repository.findActualSystemConfiguration();
+			final String currency = object.getRetailPrice().getCurrency();
+			super.state(systemConfig.getAcceptedCurrencies().contains(currency), "retailPrice", "lecturer.course.form.error.currency");
 		}
 
 	}

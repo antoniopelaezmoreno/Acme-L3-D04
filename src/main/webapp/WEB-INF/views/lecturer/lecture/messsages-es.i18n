@@ -2,6 +2,8 @@ lecturer.lecture.list.label.title = Título
 lecturer.lecture.list.label.lectureAbstract = Resumen de la clase
 lecturer.lecture.list.label.indicator = Tipo
 lecturer.lecture.list.label.published = Publicado
+lecturer.lecture.list.label.published.true = Verdadero
+lecturer.lecture.list.label.published.false = Falso
 
 lecturer.lecture.form.label.title = Título
 lecturer.lecture.form.label.lectureAbstract = Resumen de la clase

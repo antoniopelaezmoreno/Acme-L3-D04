@@ -21,3 +21,5 @@ lecturer.course.form.error.duplicated = This code already used
 lecturer.course.form.error.negativePrice = Retail Price can´t be negative
 lecturer.course.form.error.onlyTheoretical = Pure theoretical courses are not allowed
 lecturer.course.form.error.allPublished = All lectures have to be published
+lecturer.course.form.error.emptyLectures = The course must have lectures
+lecturer.course.form.error.currency = This currency is not accepted
