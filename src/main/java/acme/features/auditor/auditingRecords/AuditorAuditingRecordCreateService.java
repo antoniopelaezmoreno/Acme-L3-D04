@@ -87,8 +87,10 @@ public class AuditorAuditingRecordCreateService extends AbstractService<Auditor,
 		if (!super.getBuffer().getErrors().hasErrors("audit"))
 			super.state(auditingRecord.getAudit() != null, "audit", "auditor.auditingRecord.form.audit.nullError");
 
-		final boolean confirmation = super.getRequest().getData("confirmation", boolean.class);
-		super.state(confirmation, "confirmation", "javax.validation.constraints.AssertTrue.message");
+		if (auditingRecord.getAudit().isPublished()) {
+			final boolean confirmation = super.getRequest().getData("confirmation", boolean.class);
+			super.state(confirmation, "confirmation", "javax.validation.constraints.AssertTrue.message");
+		}
 
 	}
 

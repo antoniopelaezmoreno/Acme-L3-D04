@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
+import acme.entities.auditingRecords.AuditingRecords;
 import acme.entities.course.Course;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -90,6 +91,10 @@ public class AuditorAuditUpdateService extends AbstractService<Auditor, Audit> {
 				valid = false;
 			super.state(valid, "code", "Auditor.Audit.form.error.duplicated");
 		}
+
+		final Collection<AuditingRecords> aRs = this.repository.findManyAuditingRecordsByAuditId(object.getId());
+		final boolean allPublished = aRs.stream().allMatch(x -> x.isPublished() == true);
+		super.state(allPublished, "*", "auditingRecords.audit.form.error.allPublished");
 
 	}
 

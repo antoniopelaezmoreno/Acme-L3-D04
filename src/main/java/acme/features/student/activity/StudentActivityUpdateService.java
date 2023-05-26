@@ -1,12 +1,14 @@
 
 package acme.features.student.activity;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.activity.Activity;
+import acme.entities.activity.ActivityType;
 import acme.entities.enrolment.Enrolment;
-import acme.enums.Indication;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.helpers.MomentHelper;
@@ -69,14 +71,21 @@ public class StudentActivityUpdateService extends AbstractService<Student, Activ
 	public void bind(final Activity object) {
 		assert object != null;
 
+		Integer enrolmentId;
+		Enrolment enrolment;
+
+		enrolmentId = super.getRequest().getData("enrolment_proxy", Integer.class);
+		enrolment = this.repository.findOneEnrolmentById(enrolmentId);
+
 		super.bind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
+		object.setEnrolment(enrolment);
 	}
 
 	@Override
 	public void validate(final Activity object) {
 		assert object != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
+		if (!super.getBuffer().getErrors().hasErrors("periodEnd") && !super.getBuffer().getErrors().hasErrors("periodStart"))
 			super.state(MomentHelper.isAfter(object.getPeriodEnd(), object.getPeriodStart()), "periodEnd", "student.activity.form.error.periodEnd");
 	}
 
@@ -87,38 +96,63 @@ public class StudentActivityUpdateService extends AbstractService<Student, Activ
 		Activity activity;
 		Double oldDuration;
 		Double newDuration;
-		Double duration;
+		Double difference;
 		Double workTime;
 		Enrolment enrolment;
+		Enrolment oldEnrolment;
 
 		activity = this.repository.findOneActivityById(object.getId());
+		enrolment = this.repository.findOneEnrolmentById(object.getEnrolment().getId());
 
-		oldDuration = (double) MomentHelper.computeDuration(activity.getPeriodStart(), object.getPeriodEnd()).toHours();
+		oldEnrolment = activity.getEnrolment();
+
+		oldDuration = (double) MomentHelper.computeDuration(activity.getPeriodStart(), activity.getPeriodEnd()).toHours();
 		newDuration = (double) MomentHelper.computeDuration(object.getPeriodStart(), object.getPeriodEnd()).toHours();
-		enrolment = object.getEnrolment();
+
+		//enrolment = object.getEnrolment();
 		workTime = enrolment.getWorkTime();
-		duration = newDuration - oldDuration;
 
-		if (workTime != null)
-			enrolment.setWorkTime(workTime + duration);
-		else
-			enrolment.setWorkTime(newDuration);
+		if (enrolment == oldEnrolment) {
 
-		this.repository.save(object);
+			difference = newDuration - oldDuration;
+			enrolment.setWorkTime(workTime + difference);
+
+		} else {
+			Double oldTime;
+			oldTime = oldEnrolment.getWorkTime();
+			oldEnrolment.setWorkTime(oldTime - oldDuration);
+
+			if (workTime != null)
+				enrolment.setWorkTime(workTime + newDuration);
+			else
+				enrolment.setWorkTime(newDuration);
+
+			this.repository.save(oldEnrolment);
+
+		}
 		this.repository.save(enrolment);
+		this.repository.save(object);
 	}
 
 	@Override
 	public void unbind(final Activity object) {
 		assert object != null;
 
+		int studentId;
+		Collection<Enrolment> enrolments;
+		SelectChoices choices;
 		SelectChoices indicators;
 		Tuple tuple;
 
-		indicators = SelectChoices.from(Indication.class, object.getIndicator());
+		studentId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		enrolments = this.repository.findFinalisedEnrolmentsByStudentId(studentId);
+		choices = SelectChoices.from(enrolments, "code", object.getEnrolment());
+		indicators = SelectChoices.from(ActivityType.class, object.getIndicator());
 
 		tuple = super.unbind(object, "title", "activityAbstract", "indicator", "periodStart", "periodEnd", "link");
-		tuple.put("enrolment", object.getEnrolment().getCode());
+		tuple.put("enrolment", choices.getSelected().getKey());
+		tuple.put("enrolments", choices);
 		tuple.put("indicators", indicators);
 
 		super.getResponse().setData(tuple);

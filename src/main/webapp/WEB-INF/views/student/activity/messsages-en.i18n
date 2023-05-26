@@ -1,5 +1,6 @@
 student.activity.list.label.title = Title
 student.activity.list.label.enrolment-code = Enrolment code
+student.activity.list.label.indicator = Activity type
 
 student.activity.form.label.title = Title
 student.activity.form.label.activityAbstract = Activity abstract

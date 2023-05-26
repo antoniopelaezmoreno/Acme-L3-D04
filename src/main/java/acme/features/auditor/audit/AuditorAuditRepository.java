@@ -59,4 +59,7 @@ public interface AuditorAuditRepository extends AbstractRepository {
 	@Query("SELECT COUNT(a) = 0 FROM Audit a JOIN a.course c WHERE c.id = :id")
 	boolean checkEmptyCourseById(int id);
 
+	@Query("select a from AuditingRecords a where a.audit.id = :auditId")
+	Collection<AuditingRecords> findManyAuditingRecordsByAuditId(int auditId);
+
 }

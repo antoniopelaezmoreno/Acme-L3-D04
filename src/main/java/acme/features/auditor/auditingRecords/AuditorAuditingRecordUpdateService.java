@@ -39,16 +39,17 @@ public class AuditorAuditingRecordUpdateService extends AbstractService<Auditor,
 
 	@Override
 	public void authorise() {
+
 		boolean status;
+		int auRecId;
+		final Audit audit;
 
-		final AuditingRecords auditingRecord = this.repository.findOneAuditingRecord(super.getRequest().getData("id", int.class));
-		status = auditingRecord != null;
+		auRecId = super.getRequest().getData("id", int.class);
+		audit = this.repository.findOneAuditByAuditingRecord(auRecId);
+		status = audit != null && super.getRequest().getPrincipal().hasRole(audit.getAuditor());
 
-		final Audit audit = auditingRecord.getAudit();
-		if (audit != null)
-			status = audit.isPublished();
+		super.getResponse().setAuthorised(status);
 
-		super.getResponse().setAuthorised(status && !auditingRecord.isPublished());
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class AuditorAuditingRecordUpdateService extends AbstractService<Auditor,
 		assert auditingRecord != null;
 
 		// Actualizamos la mark del auditingRecord
-		auditingRecord.setMark(Mark.B);
+		//auditingRecord.setMark(Mark.B);
 
 		this.repository.save(auditingRecord);
 

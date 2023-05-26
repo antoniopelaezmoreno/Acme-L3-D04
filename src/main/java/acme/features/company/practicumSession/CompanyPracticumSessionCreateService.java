@@ -4,6 +4,7 @@ package acme.features.company.practicumSession;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,15 +36,18 @@ public class CompanyPracticumSessionCreateService extends AbstractService<Compan
 	public void authorise() {
 		boolean status;
 		int masterId;
+		Collection<PracticumSession> sessions;
 		Practicum practicum;
 		Company company;
 
 		company = this.repository.findCompanyByUserId(super.getRequest().getPrincipal().getAccountId());
 		masterId = super.getRequest().getData("masterId", int.class);
 		practicum = this.repository.findPracticumById(masterId);
+		sessions = this.repository.findAllSessionByPracticumId(masterId);
+
 		status = practicum != null && super.getRequest().getPrincipal().hasRole(Company.class) && practicum.getCompany().getId() == company.getId();
 
-		super.getResponse().setAuthorised(status && !practicum.isPublished());
+		super.getResponse().setAuthorised(status && !practicum.isPublished() || status && practicum.isPublished() && sessions.stream().filter(PracticumSession::isAddendum).collect(Collectors.toList()).isEmpty());
 	}
 
 	@Override
@@ -56,8 +60,9 @@ public class CompanyPracticumSessionCreateService extends AbstractService<Compan
 		practicum = this.repository.findPracticumById(masterId);
 
 		object = new PracticumSession();
-		object.setPublished(false);
+		object.setPublished(practicum.isPublished() ? true : false);
 		object.setPracticum(practicum);
+		object.setAddendum(practicum.isPublished() ? true : false);
 
 		super.getBuffer().setData(object);
 	}
@@ -72,19 +77,23 @@ public class CompanyPracticumSessionCreateService extends AbstractService<Compan
 	@Override
 	public void validate(final PracticumSession object) {
 		assert object != null;
+		boolean confirmSession;
+
+		confirmSession = !object.getPracticum().isPublished() ? true : super.getRequest().getData("confirmation", boolean.class);
+		super.state(confirmSession, "confirmation", "company.practicumSession.form.error.confirmation");
 
 		if (!super.getBuffer().getErrors().hasErrors("periodStart")) {
 			Date minStart;
 
 			minStart = MomentHelper.deltaFromMoment(MomentHelper.getCurrentMoment(), 7, ChronoUnit.DAYS);
 			super.state(MomentHelper.isAfterOrEqual(object.getPeriodStart(), minStart), "periodStart", "company.practicumSession.form.error.periodStart");
-		}
 
-		if (!super.getBuffer().getErrors().hasErrors("periodEnd")) {
-			Date minEnd;
+			if (!super.getBuffer().getErrors().hasErrors("periodEnd")) {
+				Date minEnd;
 
-			minEnd = MomentHelper.deltaFromMoment(object.getPeriodStart(), 7, ChronoUnit.DAYS);
-			super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), minEnd), "periodEnd", "company.practicumSession.form.error.periodEnd");
+				minEnd = MomentHelper.deltaFromMoment(object.getPeriodStart(), 7, ChronoUnit.DAYS);
+				super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), minEnd), "periodEnd", "company.practicumSession.form.error.periodEnd");
+			}
 		}
 	}
 
@@ -116,6 +125,7 @@ public class CompanyPracticumSessionCreateService extends AbstractService<Compan
 		tuple = super.unbind(object, "title", "sessionAbstract", "periodStart", "periodEnd", "link", "published");
 		tuple.put("masterId", super.getRequest().getData("masterId", int.class));
 		tuple.put("practicum", object.getPracticum().getTitle());
+		tuple.put("publishedPracticum", object.getPracticum().isPublished());
 
 		super.getResponse().setData(tuple);
 	}

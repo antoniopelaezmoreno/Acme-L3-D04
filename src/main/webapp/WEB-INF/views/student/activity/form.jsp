@@ -6,18 +6,13 @@
 <acme:form>
 	<acme:input-textbox code="student.activity.form.label.title" path="title"/>	
 	<acme:input-textarea code="student.activity.form.label.activityAbstract" path="activityAbstract"/>
-	<acme:input-select code="student.activity.form.label.indicator" path="indicator" choices="${indicators}"/>
+	<jstl:if test="${_command != 'create'}">
+		<acme:input-select code="student.activity.form.label.indicator" path="indicator" choices="${indicators}"/>
+	</jstl:if>
 	<acme:input-moment code="student.activity.form.label.periodStart" path="periodStart"/>
 	<acme:input-moment code="student.activity.form.label.periodEnd" path="periodEnd"/>
 	<acme:input-url code="student.activity.form.label.link" path="link"/>
-	<jstl:choose>
-	<jstl:when test="${_command == 'create'}">
-		<acme:input-select code="student.activity.form.label.enrolment-code" path="enrolment" choices="${enrolments}"/>
-	</jstl:when>
-	<jstl:otherwise>
-		<acme:input-textbox code="student.activity.form.label.enrolment-code" path="enrolment" readonly="true"/>
-	</jstl:otherwise>
-	</jstl:choose>
+	<acme:input-select code="student.activity.form.label.enrolment-code" path="enrolment" choices="${enrolments}"/>
 	
 	<jstl:choose>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
