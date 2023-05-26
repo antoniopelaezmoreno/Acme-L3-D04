@@ -4,8 +4,7 @@
 <%@taglib prefix="acme" uri="http://www.the-acme-framework.org/"%>
 
 <acme:form>
-
-	<acme:input-checkbox code="auditor.auditing-record.form.label.published" path="published"/>
+	<acme:input-checkbox code="auditor.auditing-record.form.label.published" path="published" readonly="true"/>
 	<acme:input-textbox code="auditor.auditing-record.form.label.subject" path="subject"/>	
 	<acme:input-textbox code="auditor.auditing-record.form.label.assessment" path="assessment"/>
 	<acme:input-moment code="auditor.auditing-record.form.label.periodStart" path="periodStart"/>
@@ -15,15 +14,17 @@
 	
 	<jstl:choose>
 		<jstl:when test="${_command == 'create'}">
-			<acme:input-checkbox code="auditor.auditing-record.form.label.confirmation" path="confirmation"/>
+			<jstl:if test="${publishedAudit == true}">
+				<acme:input-checkbox code="auditor.auditing-record.form.label.confirmation" path="confirmation"/>
+			</jstl:if>
 			<acme:submit code="auditor.auditing-record.form.button.create" action="/auditor/auditing-records/create?masterId=${masterId}"/>
 		</jstl:when>
-		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish')}">
 			<jstl:if test="${published == false}">
 				<acme:submit code="auditor.auditing-record.form.button.update" action="/auditor/auditing-records/update"/>
+				<acme:submit code="auditor.auditing-record.form.button.publish" action="/auditor/auditing-records/publish"/>
 				<acme:submit code="auditor.auditing-record.form.button.delete" action="/auditor/auditing-records/delete"/>
 			</jstl:if>			
 		</jstl:when>	
 	</jstl:choose>
-
 </acme:form>

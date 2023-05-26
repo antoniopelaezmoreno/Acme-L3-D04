@@ -11,6 +11,7 @@ import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
+import acme.roles.Student;
 
 @Service
 public class AuthenticatedAuditorUpdateService extends AbstractService<Authenticated, Auditor> {
@@ -25,7 +26,11 @@ public class AuthenticatedAuditorUpdateService extends AbstractService<Authentic
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+
+		status = super.getRequest().getPrincipal().hasRole(Student.class);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 
 package acme.features.auditor.auditingRecords;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -15,6 +16,7 @@ import acme.entities.auditingRecords.AuditingRecords;
 import acme.enums.Mark;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
+import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
@@ -43,12 +45,19 @@ public class AuditorAuditingRecordCreateService extends AbstractService<Auditor,
 		boolean status;
 		int auditId;
 		Audit audit;
+		Auditor auditor;
+		Collection<AuditingRecords> ars;
+
+		auditor = this.repository.findAuditorByUserId(super.getRequest().getPrincipal().getAccountId());
 
 		auditId = super.getRequest().getData("masterId", int.class);
 		audit = this.repository.findOneAuditById(auditId);
-		status = audit != null && super.getRequest().getPrincipal().hasRole(Auditor.class);
 
-		super.getResponse().setAuthorised(status);
+		ars = this.repository.findManyAuditingRecordsByAuditId(auditId);
+
+		status = audit != null && super.getRequest().getPrincipal().hasRole(Auditor.class) && audit.getAuditor().getId() == auditor.getId();
+		super.getResponse().setAuthorised(status && !audit.isPublished() || status && audit.isPublished() && ars.stream().filter(AuditingRecords::isAddendum).collect(Collectors.toList()).isEmpty());
+
 	}
 
 	@Override
@@ -62,6 +71,9 @@ public class AuditorAuditingRecordCreateService extends AbstractService<Auditor,
 
 		object = new AuditingRecords();
 		object.setAudit(audit);
+
+		object.setPublished(audit.isPublished() ? true : false);
+		object.setAddendum(audit.isPublished() ? true : false);
 
 		super.getResponse().setGlobal("masterId", auditId);
 
@@ -85,13 +97,28 @@ public class AuditorAuditingRecordCreateService extends AbstractService<Auditor,
 		assert auditingRecord != null;
 
 		if (!super.getBuffer().getErrors().hasErrors("audit"))
-			super.state(auditingRecord.getAudit() != null, "audit", "auditor.auditingRecord.form.audit.nullError");
+			super.state(auditingRecord.getAudit() != null, "audit", "auditor.auditingRecords.form.audit.nullError");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodStart"))
+			super.state(auditingRecord.getPeriodStart() != null, "periodStart", "auditor.auditingRecords.form.audit.periodStart.nullError");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
+			super.state(auditingRecord.getPeriodEnd() != null, "periodEnd", "auditor.auditingRecords.form.audit.periodEnd.nullError");
 
 		if (auditingRecord.getAudit().isPublished()) {
 			final boolean confirmation = super.getRequest().getData("confirmation", boolean.class);
 			super.state(confirmation, "confirmation", "javax.validation.constraints.AssertTrue.message");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("mark"))
+			super.state(auditingRecord.getMark() != null, "mark", "auditor.auditingRecords.form.audit.mark.nullError");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodStart") && !super.getBuffer().getErrors().hasErrors("periodEnd"))
+			if (auditingRecord.getPeriodStart() != null && auditingRecord.getPeriodEnd() != null)
+				if (!MomentHelper.isBefore(auditingRecord.getPeriodStart(), auditingRecord.getPeriodEnd()))
+					super.state(false, "periodStart", "auditor.auditingRecords.error.date.startAfterFinish");
+				else
+					super.state(!(auditingRecord.getHoursFromStart() < 1), "periodStart", "auditor.auditingRecords.error.date.shortPeriod");
 	}
 
 	@Override
@@ -137,6 +164,8 @@ public class AuditorAuditingRecordCreateService extends AbstractService<Auditor,
 
 		tuple = super.unbind(object, "subject", "assessment", "periodStart", "periodEnd", "mark", "published", "link");
 		tuple.put("marks", marks);
+		tuple.put("audit", object.getAudit().getCode());
+		tuple.put("publishedAudit", object.getAudit().isPublished());
 
 		super.getResponse().setData(tuple);
 	}

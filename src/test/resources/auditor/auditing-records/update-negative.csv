@@ -1,0 +1,5 @@
+auditIndex,recordIndex,subject,assessment,periodStart,periodEnd,mark,link
+2,0,Actualizo subject para error por                                  caracteres,assesment for auditingRecord 5 with characters  50,2021/12/20 22:00,2021/12/20 23:30,B,
+2,0,Actualizo subject,Actualizo assessment para error por                                                          caracteres,2021/12/20 22:00,2021/12/20 23:30,B,
+2,1,fallo en fecha duracion menor a una hora,assesment for auditingRecord 1 but with more characters cccccccccccccccccccccccccccccccccccccccc 100,,2021/12/20 23:30,A,https://www.wizardingworld.com/
+2,1,subject with more characters,cambio el link para error,2021/12/20 21:00,2021/12/20 22:45,A_HIGH,---

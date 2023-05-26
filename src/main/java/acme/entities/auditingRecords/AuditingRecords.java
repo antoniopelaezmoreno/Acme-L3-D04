@@ -1,6 +1,7 @@
 
 package acme.entities.auditingRecords;
 
+import java.time.Duration;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import org.hibernate.validator.constraints.URL;
 import acme.entities.audit.Audit;
 import acme.enums.Mark;
 import acme.framework.data.AbstractEntity;
+import acme.framework.helpers.MomentHelper;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -50,8 +52,16 @@ public class AuditingRecords extends AbstractEntity {
 	@URL
 	protected String			link;
 
+	protected boolean			addendum;
+
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	protected Audit				audit;
+
+
+	public double getHoursFromStart() {
+		final Duration duration = MomentHelper.computeDuration(this.periodStart, this.periodEnd);
+		return duration.getSeconds() / 3600.0;
+	}
 }
