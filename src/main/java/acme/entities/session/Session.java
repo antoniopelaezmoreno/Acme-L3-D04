@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.entities.tutorial.Tutorial;
-import acme.enums.Indication;
+import acme.enums.IndicationLecture;
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +36,7 @@ public class Session extends AbstractEntity {
 	protected String			sessionAbstract;
 
 	@NotNull
-	protected Indication		indication;
+	protected IndicationLecture	indication;
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)

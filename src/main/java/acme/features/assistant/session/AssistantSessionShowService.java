@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import acme.entities.session.Session;
 import acme.entities.tutorial.Tutorial;
-import acme.enums.Indication;
+import acme.enums.IndicationLecture;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -76,7 +76,7 @@ public class AssistantSessionShowService extends AbstractService<Assistant, Sess
 		Tuple tuple;
 		SelectChoices choices;
 
-		choices = SelectChoices.from(Indication.class, object.getIndication());
+		choices = SelectChoices.from(IndicationLecture.class, object.getIndication());
 
 		tuple = super.unbind(object, AssistantSessionCreateService.ATTRIBUTES);
 		tuple.put("tutorial", object.getTutorial().getTitle());
